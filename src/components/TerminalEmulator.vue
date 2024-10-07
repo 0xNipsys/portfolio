@@ -6,21 +6,16 @@ import TldrCmd from '@/components/TldrOutput.vue'
 import UnknownCmdOutput from '@/components/UnknownCmdOutput.vue'
 
 const cmdEntries = ref<CommandEntry[]>([])
-
-/*onMounted(() => {
-  figlet.parseFont('Standard', standard)
-  figlet.text(
-    'Xavier Saliniere',
-    {
-      font: 'Standard'
-    },
-    function (err, data) {
-      test.value = data as string
-    }
-  )
-})*/
+const initialSubmit = ref(false)
 
 function submitCommand(input: string) {
+  initialSubmit.value = true
+
+  if (input === 'clear') {
+    cmdEntries.value = []
+    return
+  }
+
   cmdEntries.value.push({
     name: input,
     timestamp: Date.now()
@@ -29,12 +24,21 @@ function submitCommand(input: string) {
 </script>
 
 <template>
-  <div class="flex-auto flex flex-col p-5 bg-darkslategray rounded-tr-md rounded-b-md">
-    <template v-for="entry in cmdEntries" :key="entry.timestamp">
-      <TerminalPrompt :command="entry.name" />
-      <TldrCmd v-if="entry.name === Command.Tldr" />
-      <UnknownCmdOutput v-else :command="entry.name" />
+  <div class="flex-auto flex flex-col p-5 bg-darkslategray rounded-tr-md rounded-b-md cursor-text">
+    <TerminalPrompt
+      v-if="!cmdEntries.length && !initialSubmit"
+      :command="Command.Tldr"
+      @onsubmit="submitCommand"
+      simulate
+    />
+
+    <template v-else>
+      <template v-for="entry in cmdEntries" :key="entry.timestamp">
+        <TerminalPrompt :command="entry.name" />
+        <TldrCmd v-if="entry.name === Command.Tldr" />
+        <UnknownCmdOutput v-else :command="entry.name" />
+      </template>
+      <TerminalPrompt @onsubmit="submitCommand" />
     </template>
-    <TerminalPrompt @onsubmit="submitCommand" />
   </div>
 </template>
