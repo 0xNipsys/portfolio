@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
+import { onMounted, ref, useTemplateRef } from 'vue'
 import i18n, { currentLang } from '@/content/i18n'
 
 const props = defineProps<{
   command?: string
-  simulateTyping?: boolean
+  simulate?: boolean
 }>()
 
 const emit = defineEmits<{
@@ -12,10 +12,11 @@ const emit = defineEmits<{
 }>()
 
 const inputText = ref<string>('')
+const inputEl = useTemplateRef<HTMLInputElement>('cmd-input')
 
 onMounted(() => {
   if (props.command) {
-    if (!props.simulateTyping) {
+    if (!props.simulate) {
       inputText.value = props.command
       return
     }
@@ -24,6 +25,7 @@ onMounted(() => {
 
     const addChar = (cmd: string) => {
       if (!cmd || i >= cmd.length) {
+        submit()
         return
       }
       inputText.value += cmd.charAt(i)
@@ -31,10 +33,11 @@ onMounted(() => {
 
       setTimeout(() => {
         addChar(cmd)
-      }, 100)
+      }, 300)
     }
     addChar(props.command)
   }
+  inputEl.value?.focus()
 })
 
 function submit() {
@@ -52,6 +55,7 @@ function submit() {
 
     <input
       v-model="inputText"
+      ref="cmd-input"
       type="text"
       class="appearance-none w-full"
       onblur="this.focus()"
