@@ -10,7 +10,7 @@ defineProps<{
 
 <template>
   <div
-    :class="`flex items-center px-5 rounded-t-md lowercase transition-colors ${active ? 'bg-darkslategray' : 'bg-darkslategray/70 cursor-pointer'}`"
+    :class="`flex items-center px-5 rounded-t-md lowercase transition-colors ${active ? 'bg-darkslategray cursor-default' : 'bg-darkslategray/70 cursor-pointer'}`"
   >
     {{ i18n[currentLang].tabTitles[tab] }}
   </div>
