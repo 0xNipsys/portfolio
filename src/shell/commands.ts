@@ -25,7 +25,8 @@ export enum Command {
   ProProjects = 'pro-projects',
   PersoProjects = 'perso-projects',
   Tldr = 'tldr',
-  SetLang = 'set-lang'
+  SetLang = 'set-lang',
+  Clear = 'clear'
 }
 
 export default [
@@ -77,5 +78,9 @@ export default [
     name: Command.SetLang,
     description: 'Change language',
     options: ['fr', 'en']
+  },
+  {
+    name: Command.Clear,
+    description: 'Clear the terminal screen'
   }
 ] satisfies CommandInfo[]
