@@ -24,7 +24,9 @@ function submitCommand(input: string) {
 </script>
 
 <template>
-  <div class="flex-auto flex flex-col p-5 bg-darkslategray rounded-tr-md rounded-b-md cursor-text">
+  <div
+    class="flex-auto flex flex-col p-5 bg-darkerslategray rounded-tr-md rounded-b-md cursor-text overflow-y-scroll"
+  >
     <TerminalPrompt
       v-if="!cmdEntries.length && !initialSubmit"
       :command="Command.Tldr"

@@ -10,7 +10,7 @@ const currentTab = ref(Tab.MainTab)
 </script>
 
 <template>
-  <div class="flex flex-col w-screen h-screen overflow-hidden bg-olivedrab p-1">
+  <div class="flex flex-col w-screen h-screen bg-darkslategray/70 p-10">
     <div class="basis-9 flex">
       <div class="flex-auto flex gap-1">
         <ContentTab

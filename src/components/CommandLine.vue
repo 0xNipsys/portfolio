@@ -47,7 +47,7 @@ function submit() {
 </script>
 
 <template>
-  <div class="flex">
+  <div class="flex w-full">
     <div class="mr-2 font-bold">
       <span class="text-steelblue">{{ i18n[currentLang].cmdLinePrefix }}</span
       >:<span class="text-steelblue">~</span>$
@@ -57,7 +57,6 @@ function submit() {
       v-model="inputText"
       ref="cmd-input"
       type="text"
-      class="appearance-none w-full"
       onblur="this.focus()"
       spellcheck="false"
       :readonly="!!command"
@@ -70,5 +69,6 @@ function submit() {
 <style lang="scss" scoped>
 input {
   all: unset;
+  flex: 1 0 auto;
 }
 </style>
