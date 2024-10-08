@@ -1,12 +1,18 @@
 <script setup lang="ts">
 import ContentTab from '@/components/ContentTab.vue'
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
 import { currentLang } from '@/content/i18n'
 import Terminal from '@/components/TerminalEmulator.vue'
 import { Lang } from '@/enums/lang'
 import { Tab } from '@/enums/tab'
 
 const currentTab = ref(Tab.MainTab)
+
+onMounted(() => {
+  if (navigator.language.includes('fr')) {
+    currentLang.value = Lang.FR
+  }
+})
 </script>
 
 <template>
