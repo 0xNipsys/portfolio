@@ -33,7 +33,7 @@ onMounted(() => {
 
       setTimeout(() => {
         addChar(cmd)
-      }, 300)
+      }, 150)
     }
     addChar(props.command)
   }
