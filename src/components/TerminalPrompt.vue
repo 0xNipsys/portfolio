@@ -1,8 +1,10 @@
 <script setup lang="ts">
 import { onMounted, ref, useTemplateRef } from 'vue'
 import i18n, { currentLang } from '@/content/i18n'
+import type { CommandEntry } from '@/shell/commands'
 
 const props = defineProps<{
+  entries?: CommandEntry[]
   command?: string
   simulate?: boolean
 }>()
@@ -12,7 +14,10 @@ const emit = defineEmits<{
 }>()
 
 const inputText = ref<string>('')
-const inputEl = useTemplateRef<HTMLInputElement>('cmd-input')
+const inputEl = useTemplateRef<HTMLInputElement>('cmdInput')
+const historyIndex = ref<number | null>(null)
+
+defineExpose({ inputEl })
 
 onMounted(() => {
   if (props.command) {
@@ -44,6 +49,37 @@ function submit() {
   emit('onsubmit', inputText.value)
   inputText.value = ''
 }
+
+function usePreviousEntry() {
+  if (!props.entries || historyIndex.value === 0) return
+  historyIndex.value === null
+    ? (historyIndex.value = props.entries.length - 1)
+    : historyIndex.value--
+  inputText.value = props.entries[historyIndex.value].name
+  updateCursorPosition()
+}
+
+function useNextEntry() {
+  if (!props.entries || historyIndex.value === null) return
+
+  if (historyIndex.value === props.entries.length - 1) {
+    historyIndex.value = null
+    inputText.value = ''
+    return
+  }
+
+  historyIndex.value++
+  inputText.value = props.entries[historyIndex.value].name
+  updateCursorPosition()
+}
+
+function updateCursorPosition() {
+  setTimeout(() => {
+    if (inputEl.value) {
+      inputEl.value.setSelectionRange(inputText.value.length, inputText.value.length)
+    }
+  }, 100)
+}
 </script>
 
 <template>
@@ -55,13 +91,15 @@ function submit() {
 
     <input
       v-model="inputText"
-      ref="cmd-input"
+      ref="cmdInput"
       type="text"
       onblur="this.focus()"
       spellcheck="false"
       :readonly="!!command"
-      autofocus
-      @keyup.enter="submit"
+      @keydown.enter="submit"
+      @keydown.up="usePreviousEntry"
+      @keydown.down="useNextEntry"
+      @beforeinput="historyIndex = null"
     />
   </div>
 </template>
