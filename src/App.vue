@@ -17,7 +17,7 @@ onMounted(() => {
 
 <template>
   <div class="flex flex-col w-screen h-screen bg-darkslategray/70 p-10">
-    <div class="basis-9 flex">
+    <div class="basis-9 flex flex-shrink-0">
       <div class="flex-auto flex gap-1">
         <ContentTab
           v-for="tab in Tab"
