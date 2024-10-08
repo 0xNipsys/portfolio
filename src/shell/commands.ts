@@ -24,7 +24,8 @@ export enum Command {
   Positions = 'positions',
   ProProjects = 'pro-projects',
   PersoProjects = 'perso-projects',
-  Tldr = 'tldr',
+  Intro = 'intro',
+  Help = 'help',
   SetLang = 'set-lang',
   Clear = 'clear'
 }
@@ -71,8 +72,12 @@ export default [
     description: 'List all the personal projects I worked on'
   },
   {
-    name: Command.Tldr,
-    description: 'Print this help page'
+    name: Command.Intro,
+    description: 'Print intro message'
+  },
+  {
+    name: Command.Help,
+    description: 'Print list of commands'
   },
   {
     name: Command.SetLang,

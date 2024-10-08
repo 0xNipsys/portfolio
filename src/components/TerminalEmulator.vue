@@ -2,8 +2,9 @@
 import TerminalPrompt from '@/components/CommandLine.vue'
 import { ref } from 'vue'
 import { Command, type CommandEntry } from '@/shell/commands'
-import TldrCmd from '@/components/TldrOutput.vue'
+import IntroOutput from '@/components/IntroOutput.vue'
 import UnknownCmdOutput from '@/components/UnknownCmdOutput.vue'
+import HelpOutput from '@/components/HelpOutput.vue'
 
 const cmdEntries = ref<CommandEntry[]>([])
 const initialSubmit = ref(false)
@@ -29,7 +30,7 @@ function submitCommand(input: string) {
   >
     <TerminalPrompt
       v-if="!cmdEntries.length && !initialSubmit"
-      :command="Command.Tldr"
+      :command="Command.Intro"
       @onsubmit="submitCommand"
       simulate
     />
@@ -37,7 +38,8 @@ function submitCommand(input: string) {
     <template v-else>
       <template v-for="entry in cmdEntries" :key="entry.timestamp">
         <TerminalPrompt :command="entry.name" />
-        <TldrCmd v-if="entry.name === Command.Tldr" />
+        <IntroOutput v-if="entry.name === Command.Intro" />
+        <HelpOutput v-else-if="entry.name === Command.Help" />
         <UnknownCmdOutput v-else :command="entry.name" />
       </template>
       <TerminalPrompt @onsubmit="submitCommand" />
