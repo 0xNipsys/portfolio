@@ -1,13 +1,11 @@
-interface CommandInfo {
+export interface CommandInfo {
   name: Command
-  description: string
   arguments?: CommandArgument[]
   options?: string[]
 }
 
-interface CommandArgument {
+export interface CommandArgument {
   name: string
-  description: string
   options?: string[]
   format?: string
 }
@@ -32,60 +30,54 @@ export enum Command {
 
 export default [
   {
-    name: Command.AboutMe,
-    description: 'Learn more about me'
+    name: Command.AboutMe
   },
   {
     name: Command.Positions,
-    description: 'List all the positions I occupied',
     arguments: [
       {
         name: 'company',
-        description: 'Filter positions by company',
         options: ['yanport', 'onepoint', 'renault', 'talan', 'bell', 'deepspace']
       },
       {
         name: 'date',
-        description: 'Filter positions by date',
         format: 'YYYY-MM-DD'
       }
     ]
   },
   {
     name: Command.ProProjects,
-    description: 'List all the professional projects I worked on',
     arguments: [
       {
         name: 'company',
-        description: 'Filter professional projects by company',
         options: ['yanport', 'onepoint', 'renault', 'talan', 'bell']
       },
       {
         name: 'tech',
-        description: 'Filter professional projects by technology',
         options: ['angular', 'react', 'vue', 'web3', 'java', 'c#']
       }
     ]
   },
   {
     name: Command.PersoProjects,
-    description: 'List all the personal projects I worked on'
-  },
-  {
-    name: Command.Intro,
-    description: 'Print intro message'
-  },
-  {
-    name: Command.Help,
-    description: 'Print list of commands'
+    arguments: [
+      {
+        name: 'tech',
+        options: ['angular', 'react', 'vue', 'web3', 'java', 'c#']
+      }
+    ]
   },
   {
     name: Command.SetLang,
-    description: 'Change language',
     options: ['fr', 'en']
   },
   {
-    name: Command.Clear,
-    description: 'Clear the terminal screen'
+    name: Command.Intro
+  },
+  {
+    name: Command.Help
+  },
+  {
+    name: Command.Clear
   }
 ] satisfies CommandInfo[]
