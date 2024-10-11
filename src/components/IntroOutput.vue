@@ -2,14 +2,16 @@
 import { onMounted, ref } from 'vue'
 import figlet from 'figlet'
 import standard from 'figlet/importable-fonts/Standard.js'
+import Name from '@/content/name'
+import i18n, { CurrentLang } from '../content/i18n'
+import { Command } from '@/shell/commands'
 
-const name = 'Xavier Saliniere'
 const figletText = ref('')
 
 onMounted(() => {
   figlet.parseFont('Standard', standard)
   figlet.text(
-    name,
+    Name,
     {
       font: 'Standard'
     },
@@ -23,15 +25,17 @@ onMounted(() => {
     {{ figletText }}
   </div>
 
-  <p>Welcome to my terminal-inspired Portfolio!</p>
+  <p>{{ i18n[CurrentLang].outputs.intro.welcome }}</p>
 
   <p>
-    I'm <span class="text-lightseagreen font-bold">{{ name }}</span
-    >, a senior Web app developer.
+    {{ i18n[CurrentLang].outputs.intro.iam }}
+    <span class="text-lightseagreen font-bold">{{ Name }}</span
+    >{{ i18n[CurrentLang].outputs.intro.workTitle }}
   </p>
   <p class="leading-5 my-3">
-    This porfolio app can be browsed by clicking on the tabs above.<br />Or, for the full command
-    line experience, get started by typing <span class="text-olivedrab font-bold">help</span>.
+    {{ i18n[CurrentLang].outputs.intro.tabBrowsing }}<br />{{
+      i18n[CurrentLang].outputs.intro.cmdBrowsing
+    }}&nbsp;<span class="font-bold text-darkgoldenrod">[{{ Command.Help }}]</span>.
   </p>
 </template>
 

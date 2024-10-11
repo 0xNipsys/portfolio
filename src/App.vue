@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import ContentTab from '@/components/ContentTab.vue'
 import { onMounted, ref } from 'vue'
-import { currentLang } from '@/content/i18n'
+import { CurrentLang } from '@/content/i18n'
 import Terminal from '@/components/TerminalEmulator.vue'
 import { Lang } from '@/enums/lang'
 import { Tab } from '@/enums/tab'
@@ -10,7 +10,7 @@ const currentTab = ref(Tab.MainTab)
 
 onMounted(() => {
   if (navigator.language.includes('fr')) {
-    currentLang.value = Lang.FR
+    CurrentLang.value = Lang.FR
   }
 })
 </script>
@@ -31,14 +31,14 @@ onMounted(() => {
         <v-icon
           name="fi-fr"
           class="size-full cursor-pointer transition-all"
-          :class="{ grayscale: currentLang === Lang.EN }"
-          @click="currentLang = Lang.FR"
+          :class="{ grayscale: CurrentLang === Lang.EN }"
+          @click="CurrentLang = Lang.FR"
         />
         <v-icon
           name="fi-gb"
           class="size-full cursor-pointer transition-all"
-          :class="{ grayscale: currentLang === Lang.FR }"
-          @click="currentLang = Lang.EN"
+          :class="{ grayscale: CurrentLang === Lang.FR }"
+          @click="CurrentLang = Lang.EN"
         />
       </div>
     </div>

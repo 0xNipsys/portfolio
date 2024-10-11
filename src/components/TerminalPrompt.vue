@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { onMounted, ref, useTemplateRef } from 'vue'
-import i18n, { currentLang } from '@/content/i18n'
+import i18n, { CurrentLang } from '@/content/i18n'
 import type { CommandEntry } from '@/shell/commands'
 
 const props = defineProps<{
@@ -85,7 +85,7 @@ function updateCursorPosition() {
 <template>
   <div class="flex w-full">
     <div class="mr-2 font-bold">
-      <span class="text-steelblue">{{ i18n[currentLang].cmdLinePrefix }}</span
+      <span class="text-steelblue">{{ i18n[CurrentLang].cmdLinePrefix }}</span
       >:<span class="text-steelblue">~</span>$
     </div>
 
