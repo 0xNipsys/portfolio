@@ -4,5 +4,5 @@ export default {
   workTitle: ", un développeur senior d'applications Web.",
   tabBrowsing:
     'Cette application porfolio peut être explorée en cliquant sur les onglets ci-dessus.',
-  cmdBrowsing: 'Ou, pour une expérience terminal complète, commencez par taper'
+  cmdBrowsing: 'Ou, pour une expérience terminal complète, commencez par'
 } satisfies Record<string, string>

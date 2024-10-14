@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import TerminalPrompt from '@/components/TerminalPrompt.vue'
-import { ref, useTemplateRef } from 'vue'
-import { Command, type CommandEntry } from '@/shell/commands'
+import { ref, useTemplateRef, watch } from 'vue'
+import { Command, type CommandEntry, ShellSubmission } from '@/shell/commands'
 import IntroOutput from '@/components/IntroOutput.vue'
 import UnknownCmdOutput from '@/components/UnknownCmdOutput.vue'
 import HelpOutput from '@/components/HelpOutput.vue'
@@ -10,22 +10,24 @@ const cmdEntries = ref<CommandEntry[]>([])
 const initialSubmit = ref(false)
 const mainPrompt = useTemplateRef<typeof TerminalPrompt>('mainPrompt')
 
-function submitCommand(input: string) {
+watch(ShellSubmission, (submission) => {
+  if (!submission) return
+  ShellSubmission.value = ''
   initialSubmit.value = true
 
-  if (input === 'clear') {
+  if (submission === 'clear') {
     cmdEntries.value = []
     return
   }
 
   cmdEntries.value.push({
-    name: input,
+    name: submission,
     timestamp: Date.now()
   })
   setTimeout(() => {
     mainPrompt.value?.inputEl.scrollIntoView({ behavior: 'smooth' })
   }, 100)
-}
+})
 </script>
 
 <template>
@@ -34,19 +36,18 @@ function submitCommand(input: string) {
   >
     <TerminalPrompt
       v-if="!cmdEntries.length && !initialSubmit"
-      :command="Command.Intro"
-      @onsubmit="submitCommand"
+      :cmdInput="Command.Intro"
       simulate
     />
 
     <template v-else>
       <template v-for="entry in cmdEntries" :key="entry.timestamp">
-        <TerminalPrompt :command="entry.name" />
+        <TerminalPrompt :cmdInput="entry.name" />
         <IntroOutput v-if="entry.name === Command.Intro" />
         <HelpOutput v-else-if="entry.name === Command.Help" />
         <UnknownCmdOutput v-else :command="entry.name" />
       </template>
-      <TerminalPrompt ref="mainPrompt" :entries="cmdEntries" @onsubmit="submitCommand" />
+      <TerminalPrompt ref="mainPrompt" :entries="cmdEntries" />
     </template>
   </div>
 </template>

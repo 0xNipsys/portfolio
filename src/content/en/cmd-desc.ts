@@ -5,7 +5,7 @@ export default {
   [Command.AboutMe]: {
     description: 'Learn more about me'
   },
-  [Command.Positions]: {
+  [Command.Experience]: {
     description: 'List all the positions I occupied',
     argsDesc: {
       company: 'Filter positions by company',

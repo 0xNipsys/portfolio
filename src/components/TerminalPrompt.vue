@@ -1,16 +1,12 @@
 <script setup lang="ts">
-import { onMounted, ref, useTemplateRef } from 'vue'
+import { onMounted, ref, useTemplateRef, watch } from 'vue'
 import i18n, { CurrentLang } from '@/content/i18n'
-import type { CommandEntry } from '@/shell/commands'
+import { type CommandEntry, ShellInput, ShellSubmission } from '@/shell/commands'
 
 const props = defineProps<{
   entries?: CommandEntry[]
-  command?: string
+  cmdInput?: string
   simulate?: boolean
-}>()
-
-const emit = defineEmits<{
-  (e: 'onsubmit', input: string): void
 }>()
 
 const inputText = ref<string>('')
@@ -20,9 +16,9 @@ const historyIndex = ref<number | null>(null)
 defineExpose({ inputEl })
 
 onMounted(() => {
-  if (props.command) {
+  if (props.cmdInput) {
     if (!props.simulate) {
-      inputText.value = props.command
+      inputText.value = props.cmdInput
       return
     }
 
@@ -40,13 +36,19 @@ onMounted(() => {
         addChar(cmd)
       }, 150)
     }
-    addChar(props.command)
+    addChar(props.cmdInput)
   }
   inputEl.value?.focus()
 })
 
+watch(ShellInput, (input) => {
+  if (props.cmdInput || !input) return
+  inputText.value = input
+  ShellInput.value = ''
+})
+
 function submit() {
-  emit('onsubmit', inputText.value)
+  ShellSubmission.value = inputText.value
   inputText.value = ''
 }
 
@@ -93,9 +95,8 @@ function updateCursorPosition() {
       v-model="inputText"
       ref="cmdInput"
       type="text"
-      onblur="this.focus()"
       spellcheck="false"
-      :readonly="!!command"
+      :readonly="!!cmdInput"
       @keydown.enter="submit"
       @keydown.up="usePreviousEntry"
       @keydown.down="useNextEntry"

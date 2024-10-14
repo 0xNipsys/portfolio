@@ -5,6 +5,7 @@ import standard from 'figlet/importable-fonts/Standard.js'
 import Name from '@/content/name'
 import i18n, { CurrentLang } from '../content/i18n'
 import { Command } from '@/shell/commands'
+import CmdLink from '@/components/CmdLink.vue'
 
 const figletText = ref('')
 
@@ -35,7 +36,7 @@ onMounted(() => {
   <p class="leading-5 my-3">
     {{ i18n[CurrentLang].outputs.intro.tabBrowsing }}<br />{{
       i18n[CurrentLang].outputs.intro.cmdBrowsing
-    }}&nbsp;<span class="font-bold text-darkgoldenrod">[{{ Command.Help }}]</span>.
+    }}&nbsp;<CmdLink :cmd-name="Command.Help" />.
   </p>
 </template>
 

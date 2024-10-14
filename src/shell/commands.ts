@@ -1,3 +1,8 @@
+import { ref } from 'vue'
+
+export const ShellInput = ref('')
+export const ShellSubmission = ref('')
+
 export interface CommandInfo {
   name: Command
   arguments?: CommandArgument[]
@@ -19,7 +24,7 @@ export interface CommandEntry {
 
 export enum Command {
   AboutMe = 'about-me',
-  Positions = 'positions',
+  Experience = 'experience',
   ProProjects = 'pro-projects',
   PersoProjects = 'perso-projects',
   Intro = 'intro',
@@ -33,7 +38,7 @@ export default [
     name: Command.AboutMe
   },
   {
-    name: Command.Positions,
+    name: Command.Experience,
     arguments: [
       {
         name: 'company',
