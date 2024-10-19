@@ -17,7 +17,7 @@ defineExpose({ inputEl })
 
 onMounted(() => {
   if (props.cmdEntry) {
-    inputText.value = `${props.cmdEntry.cmdName}${props.cmdEntry.option ? ` ${props.cmdEntry.option}` : ''}${props.cmdEntry.argName ? ` ${props.cmdEntry.argName}=${props.cmdEntry.argValue}` : ''}`
+    inputText.value = getPastInputStr(props.cmdEntry)
   } else if (props.simInput) {
     let i = 0
 
@@ -54,7 +54,7 @@ function usePreviousEntry() {
   historyIndex.value === null
     ? (historyIndex.value = props.entries.length - 1)
     : historyIndex.value--
-  inputText.value = props.entries[historyIndex.value].cmdName
+  inputText.value = getPastInputStr(props.entries[historyIndex.value])
   updateCursorPosition()
 }
 
@@ -68,7 +68,7 @@ function useNextEntry() {
   }
 
   historyIndex.value++
-  inputText.value = props.entries[historyIndex.value].cmdName
+  inputText.value = getPastInputStr(props.entries[historyIndex.value])
   updateCursorPosition()
 }
 
@@ -78,6 +78,17 @@ function updateCursorPosition() {
       inputEl.value.setSelectionRange(inputText.value.length, inputText.value.length)
     }
   }, 100)
+}
+
+function getPastInputStr(entry: CommandEntry) {
+  let pastInput = entry.cmdName
+  if (entry.option) {
+    pastInput += ` ${entry.option}`
+  }
+  if (entry.argName) {
+    pastInput += ` --${entry.argName}=${entry.argValue}`
+  }
+  return pastInput
 }
 </script>
 
