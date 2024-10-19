@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import { onMounted, ref, useTemplateRef, watch } from 'vue'
-import i18n, { CurrentLang } from '@/content/i18n'
+import { i18n } from '@/content/i18n'
 import { type CommandEntry, ShellInput, ShellSubmission } from '@/shell/commands'
 
 const props = defineProps<{
   entries?: CommandEntry[]
-  cmdInput?: string
-  simulate?: boolean
+  cmdEntry?: CommandEntry
+  simInput?: string
 }>()
 
 const inputText = ref<string>('')
@@ -16,12 +16,9 @@ const historyIndex = ref<number | null>(null)
 defineExpose({ inputEl })
 
 onMounted(() => {
-  if (props.cmdInput) {
-    if (!props.simulate) {
-      inputText.value = props.cmdInput
-      return
-    }
-
+  if (props.cmdEntry) {
+    inputText.value = `${props.cmdEntry.cmdName}${props.cmdEntry.option ? ` ${props.cmdEntry.option}` : ''}${props.cmdEntry.argName ? ` ${props.cmdEntry.argName}=${props.cmdEntry.argValue}` : ''}`
+  } else if (props.simInput) {
     let i = 0
 
     const addChar = (cmd: string) => {
@@ -36,13 +33,13 @@ onMounted(() => {
         addChar(cmd)
       }, 150)
     }
-    addChar(props.cmdInput)
+    addChar(props.simInput)
+    inputEl.value?.focus()
   }
-  inputEl.value?.focus()
 })
 
 watch(ShellInput, (input) => {
-  if (props.cmdInput || !input) return
+  if (props.cmdEntry || props.simInput || !input) return
   inputText.value = input
   ShellInput.value = ''
 })
@@ -57,7 +54,7 @@ function usePreviousEntry() {
   historyIndex.value === null
     ? (historyIndex.value = props.entries.length - 1)
     : historyIndex.value--
-  inputText.value = props.entries[historyIndex.value].name
+  inputText.value = props.entries[historyIndex.value].cmdName
   updateCursorPosition()
 }
 
@@ -71,7 +68,7 @@ function useNextEntry() {
   }
 
   historyIndex.value++
-  inputText.value = props.entries[historyIndex.value].name
+  inputText.value = props.entries[historyIndex.value].cmdName
   updateCursorPosition()
 }
 
@@ -87,7 +84,7 @@ function updateCursorPosition() {
 <template>
   <div class="flex w-full">
     <div class="mr-2 font-bold">
-      <span class="text-steelblue">{{ i18n[CurrentLang].cmdLinePrefix }}</span
+      <span class="text-steelblue">{{ i18n.cmdLinePrefix }}</span
       >:<span class="text-steelblue">~</span>$
     </div>
 
@@ -96,7 +93,7 @@ function updateCursorPosition() {
       ref="cmdInput"
       type="text"
       spellcheck="false"
-      :readonly="!!cmdInput"
+      :readonly="!!cmdEntry || !!simInput"
       @keydown.enter="submit"
       @keydown.up="usePreviousEntry"
       @keydown.down="useNextEntry"
@@ -109,5 +106,6 @@ function updateCursorPosition() {
 input {
   all: unset;
   flex: 1 0 auto;
+  opacity: 0.8;
 }
 </style>

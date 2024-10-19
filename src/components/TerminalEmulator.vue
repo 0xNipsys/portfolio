@@ -5,6 +5,8 @@ import { Command, type CommandEntry, ShellSubmission } from '@/shell/commands'
 import IntroOutput from '@/components/IntroOutput.vue'
 import UnknownCmdOutput from '@/components/UnknownCmdOutput.vue'
 import HelpOutput from '@/components/HelpOutput.vue'
+import SetLangOutput from '@/components/SetLangOutput.vue'
+import parseEntry from '@/shell/entry-parsing'
 
 const cmdEntries = ref<CommandEntry[]>([])
 const initialSubmit = ref(false)
@@ -20,32 +22,33 @@ watch(ShellSubmission, (submission) => {
     return
   }
 
-  cmdEntries.value.push({
-    name: submission,
-    timestamp: Date.now()
-  })
+  const cmdEntry = parseEntry(submission)
+  cmdEntries.value.push(cmdEntry)
+
   setTimeout(() => {
     mainPrompt.value?.inputEl.scrollIntoView({ behavior: 'smooth' })
   }, 100)
 })
+
+function onClick() {
+  mainPrompt.value?.inputEl.focus()
+}
 </script>
 
 <template>
   <div
     class="flex-auto flex flex-col p-5 bg-darkerslategray rounded-tr-md rounded-b-md cursor-text overflow-y-scroll"
+    @click="onClick"
   >
-    <TerminalPrompt
-      v-if="!cmdEntries.length && !initialSubmit"
-      :cmdInput="Command.Intro"
-      simulate
-    />
+    <TerminalPrompt v-if="!cmdEntries.length && !initialSubmit" :simInput="Command.Intro" />
 
     <template v-else>
       <template v-for="entry in cmdEntries" :key="entry.timestamp">
-        <TerminalPrompt :cmdInput="entry.name" />
-        <IntroOutput v-if="entry.name === Command.Intro" />
-        <HelpOutput v-else-if="entry.name === Command.Help" />
-        <UnknownCmdOutput v-else :command="entry.name" />
+        <TerminalPrompt :cmdEntry="entry" />
+        <SetLangOutput v-if="entry.cmdName === Command.SetLang" :entry="entry" />
+        <IntroOutput v-else-if="entry.cmdName === Command.Intro" />
+        <HelpOutput v-else-if="entry.cmdName === Command.Help" />
+        <UnknownCmdOutput v-else :command="entry.cmdName" />
       </template>
       <TerminalPrompt ref="mainPrompt" :entries="cmdEntries" />
     </template>

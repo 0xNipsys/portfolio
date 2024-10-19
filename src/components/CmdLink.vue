@@ -21,10 +21,15 @@ function submitCmd(): void {
   if (!cmd) return
   ShellInput.value = ''
 
+  if (props.cmdInfo?.options?.length) {
+    ShellInput.value = `${cmd} `
+    return
+  }
   if (props.arg) {
     ShellInput.value = `${cmd} --${props.arg.name}=`
     return
   }
+
   ShellSubmission.value = cmd
 }
 </script>
@@ -42,5 +47,3 @@ function submitCmd(): void {
     >]</span
   >
 </template>
-
-<style scoped lang="scss"></style>

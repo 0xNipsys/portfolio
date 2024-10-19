@@ -17,9 +17,10 @@ export interface CommandArgument {
 
 export interface CommandEntry {
   timestamp: number
-  name: string
-  argumentName?: string
-  argumentValue?: string
+  cmdName: Command
+  option?: string
+  argName?: string
+  argValue?: string
 }
 
 export enum Command {
