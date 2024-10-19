@@ -7,6 +7,7 @@ import UnknownCmdOutput from '@/components/UnknownCmdOutput.vue'
 import HelpOutput from '@/components/HelpOutput.vue'
 import SetLangOutput from '@/components/SetLangOutput.vue'
 import parseEntry from '@/shell/entry-parsing'
+import ExperienceOutput from '@/components/ExperienceOutput.vue'
 
 const cmdEntries = ref<CommandEntry[]>([])
 const initialSubmit = ref(false)
@@ -45,7 +46,8 @@ function onClick() {
     <template v-else>
       <template v-for="entry in cmdEntries" :key="entry.timestamp">
         <TerminalPrompt :cmdEntry="entry" />
-        <SetLangOutput v-if="entry.cmdName === Command.SetLang" :entry="entry" />
+        <ExperienceOutput v-if="entry.cmdName === Command.Experience" :entry="entry" />
+        <SetLangOutput v-else-if="entry.cmdName === Command.SetLang" :entry="entry" />
         <IntroOutput v-else-if="entry.cmdName === Command.Intro" />
         <HelpOutput v-else-if="entry.cmdName === Command.Help" />
         <UnknownCmdOutput v-else :command="entry.cmdName" />
