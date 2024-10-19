@@ -27,5 +27,3 @@ onMounted(() => {
     >Unrecognized or missing language. Expecting: {{ cmdInfo?.options?.join(', ') }}</span
   >
 </template>
-
-<style scoped lang="scss"></style>

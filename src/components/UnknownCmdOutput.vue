@@ -9,5 +9,3 @@ defineProps<{
 <template>
   <span class="text-firebrick">{{ i18n.unknownCmdErr }}: {{ command }}</span>
 </template>
-
-<style scoped lang="scss"></style>
