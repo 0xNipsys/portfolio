@@ -12,10 +12,6 @@ const props = defineProps<{
   arg?: CommandArgument
 }>()
 
-function getArgOptionFormat(arg: CommandArgument): string {
-  return arg.format ?? arg.options?.join('|') ?? ''
-}
-
 function submitCmd(): void {
   const cmd = props.cmdName ?? props.cmdInfo?.name ?? ''
   if (!cmd) return
@@ -39,7 +35,7 @@ function submitCmd(): void {
     <span>[{{ cmdName ?? cmdInfo?.name }}</span>
     <template v-if="cmdInfo">
       <template v-if="arg">
-        --{{ arg.name }}=<span class="text-darkgray">{{ getArgOptionFormat(arg) }}</span>
+        --{{ arg.name }}=<span class="text-darkgray">{{ arg.options?.join('|') }}</span>
       </template>
       <span v-else-if="cmdInfo.options" class="text-darkgray"
         >&nbsp;{{ cmdInfo.options.join('|') }}</span

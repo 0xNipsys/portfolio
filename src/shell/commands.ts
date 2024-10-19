@@ -1,4 +1,5 @@
 import { ref } from 'vue'
+import { Lang } from '@/enums/lang'
 
 export const ShellInput = ref('')
 export const ShellSubmission = ref('')
@@ -12,7 +13,6 @@ export interface CommandInfo {
 export interface CommandArgument {
   name: string
   options?: string[]
-  format?: string
 }
 
 export interface CommandEntry {
@@ -46,8 +46,12 @@ export default [
         options: ['yanport', 'onepoint', 'renault', 'talan', 'bell', 'deepspace']
       },
       {
-        name: 'date',
-        format: 'YYYY-MM-DD'
+        name: 'role',
+        options: ['frontend', 'fullstack']
+      },
+      {
+        name: 'tech',
+        options: ['angular', 'react', 'vue', 'web3', 'java', 'c#']
       }
     ]
   },
@@ -75,7 +79,7 @@ export default [
   },
   {
     name: Command.SetLang,
-    options: ['fr', 'en']
+    options: Object.values(Lang).map((l) => l.toLowerCase())
   },
   {
     name: Command.Intro

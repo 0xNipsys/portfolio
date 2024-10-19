@@ -9,7 +9,8 @@ export default {
     description: "Liste de tous les postes que j'ai occupés",
     argsDesc: {
       company: 'Filtrer les postes par entreprise',
-      date: 'Filtrer les positions par date'
+      role: 'Filtrer les positions par rôle',
+      tech: 'Filtrer les positions par technologie'
     }
   },
   [Command.ProProjects]: {
