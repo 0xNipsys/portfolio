@@ -1,5 +1,6 @@
 import { ref } from 'vue'
 import { Lang } from '@/enums/lang'
+import { Company, PositionRole, Tech } from '@/enums/work'
 
 export const ShellInput = ref('')
 export const ShellSubmission = ref('')
@@ -34,6 +35,12 @@ export enum Command {
   Clear = 'clear'
 }
 
+function enumToArg(o: { [s: string]: any } | ArrayLike<any>): string[] {
+  return Object.values(o).map((l: string) => {
+    return l.replace(' ', '').replace('-', '').toLowerCase()
+  })
+}
+
 export default [
   {
     name: Command.AboutMe
@@ -43,15 +50,15 @@ export default [
     arguments: [
       {
         name: 'company',
-        options: ['yanport', 'onepoint', 'renault', 'talan', 'bell', 'deepspace']
+        options: enumToArg(Company)
       },
       {
         name: 'role',
-        options: ['frontend', 'fullstack']
+        options: enumToArg(PositionRole)
       },
       {
         name: 'tech',
-        options: ['angular', 'react', 'vue', 'web3', 'java', 'c#']
+        options: enumToArg(Tech)
       }
     ]
   },
@@ -60,11 +67,11 @@ export default [
     arguments: [
       {
         name: 'company',
-        options: ['yanport', 'onepoint', 'renault', 'talan', 'bell']
+        options: enumToArg(Company)
       },
       {
         name: 'tech',
-        options: ['angular', 'react', 'vue', 'web3', 'java', 'c#']
+        options: enumToArg(Tech)
       }
     ]
   },
@@ -73,13 +80,13 @@ export default [
     arguments: [
       {
         name: 'tech',
-        options: ['angular', 'react', 'vue', 'web3', 'java', 'c#']
+        options: enumToArg(Tech)
       }
     ]
   },
   {
     name: Command.SetLang,
-    options: Object.values(Lang).map((l) => l.toLowerCase())
+    options: enumToArg(Lang)
   },
   {
     name: Command.Intro
