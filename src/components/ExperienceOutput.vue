@@ -6,6 +6,8 @@ import Commands, {
   type CommandEntry,
   type CommandInfo
 } from '@/shell/commands'
+import ContentTable from '@/components/ContentTable.vue'
+import { type Position, positions } from '@/content/positions'
 
 const props = defineProps<{
   entry: CommandEntry
@@ -14,6 +16,23 @@ const props = defineProps<{
 const cmdInfo: CommandInfo | undefined = Commands.find((cmd) => cmd.name === Command.Experience)
 const passedArg = ref<CommandArgument | null>(null)
 const isArgValid = ref(false)
+
+const tableColumnFields: (keyof Position)[] = ['id', 'company', 'role', 'type', 'techs', 'period']
+
+const tableFormat = (field: string, obj: Record<string, any>): string => {
+  const position = obj as Position
+  const key = field as keyof Position
+  const val = position[key]
+
+  switch (key) {
+    case 'techs':
+      return ''
+    case 'period':
+      return ''
+    default:
+      return `${val}`
+  }
+}
 
 onMounted(() => {
   if (!props.entry.argName) return
@@ -40,5 +59,11 @@ onMounted(() => {
       {{ cmdInfo?.arguments?.map((arg) => arg.name).join(', ') }}</span
     >
   </div>
-  <span v-else> todo </span>
+  <ContentTable
+    ref-field="id"
+    :fields="tableColumnFields"
+    :format="tableFormat"
+    :entries="positions"
+    v-else
+  />
 </template>
