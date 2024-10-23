@@ -38,7 +38,7 @@ function onClick() {
 
 <template>
   <div
-    class="flex-auto flex flex-col p-5 bg-darkerslategray rounded-tr-md rounded-b-md cursor-text overflow-y-scroll"
+    class="flex-auto flex flex-col p-5 bg-darkerslategray rounded-tr-md rounded-b-md overflow-y-scroll select-none"
     @click="onClick"
   >
     <TerminalPrompt v-if="!cmdEntries.length && !initialSubmit" :simInput="Command.Intro" />

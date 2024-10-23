@@ -32,7 +32,7 @@ export const positions: Position[] = [
       Tech.Bootstrap,
       Tech.Cassandra,
       Tech.Datastore,
-      Tech.ElasticSearch,
+      Tech.Elasticsearch,
       Tech.Java,
       Tech.Javascript,
       Tech.Jsoup,
@@ -53,7 +53,7 @@ export const positions: Position[] = [
       Tech.Cassandra,
       Tech.CSSFlexbox,
       Tech.Datastore,
-      Tech.ElasticSearch,
+      Tech.Elasticsearch,
       Tech.Java,
       Tech.Javascript,
       Tech.Jsoup,
@@ -86,6 +86,25 @@ export const positions: Position[] = [
   },
   {
     id: 5,
+    company: Company.Chainify,
+    role: PositionRole.FullStack,
+    isLeadRole: false,
+    type: PositionType.PartTime,
+    techs: [
+      Tech.AzureFunctions,
+      Tech.Blockchain,
+      Tech.CSharp,
+      Tech.CSSFlexbox,
+      Tech.DaisyUI,
+      Tech.React,
+      Tech.Serverless,
+      Tech.Web3,
+      Tech.Storybook
+    ],
+    period: [new Date(2022, 4), new Date(2023, 6)]
+  },
+  {
+    id: 6,
     company: Company.Talan,
     clientCompany: Company.Bell,
     role: PositionRole.Frontend,
@@ -105,24 +124,5 @@ export const positions: Position[] = [
       Tech.Vue3
     ],
     period: [new Date(2022, 1)]
-  },
-  {
-    id: 6,
-    company: Company.Deepspace,
-    role: PositionRole.FullStack,
-    isLeadRole: false,
-    type: PositionType.PartTime,
-    techs: [
-      Tech.AzureFunctions,
-      Tech.Blockchain,
-      Tech.CSharp,
-      Tech.CSSFlexbox,
-      Tech.DaisyUI,
-      Tech.React,
-      Tech.Serverless,
-      Tech.Web3,
-      Tech.Storybook
-    ],
-    period: [new Date(2022, 4), new Date(2023, 6)]
   }
 ]

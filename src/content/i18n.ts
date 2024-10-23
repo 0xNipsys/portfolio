@@ -1,5 +1,5 @@
 import { Lang } from '@/enums/lang'
-import { computed, ref } from 'vue'
+import { computed, ref, watch } from 'vue'
 import { Tab } from '@/enums/tab'
 import { Command } from '@/shell/commands'
 import enSetLang from '@/content/en/setLang-output'
@@ -10,13 +10,17 @@ import enCmdDesc from '@/content/en/cmd-desc'
 import frCmdDesc from '@/content/fr/cmd-desc'
 import enTabTitles from '@/content/en/tab-titles'
 import frTabTitles from '@/content/fr/tab-titles'
+import dayjs from 'dayjs'
+import 'dayjs/locale/fr'
+import 'dayjs/locale/en'
 
 export interface I18nContent {
+  cmdDesc: Record<Command, I18nCmd>
   cmdLinePrefix: string
   cmdOut: Record<Command, Record<string, string>>
-  cmdDesc: Record<Command, I18nCmd>
-  unknownCmdErr: string
   tabTitles: Record<Tab, string>
+  present: string
+  unknownCmdErr: string
 }
 
 export interface I18nCmd {
@@ -25,9 +29,24 @@ export interface I18nCmd {
 }
 
 export const CurrentLang = ref(Lang.EN)
+watch(
+  CurrentLang,
+  () => {
+    switch (CurrentLang.value) {
+      case Lang.FR:
+        dayjs.locale('fr')
+        break
+      case Lang.EN:
+        dayjs.locale('en')
+        break
+    }
+  },
+  { immediate: true }
+)
 
 const content: Record<Lang, I18nContent> = {
   [Lang.EN]: {
+    cmdDesc: enCmdDesc,
     cmdLinePrefix: 'visitor@portfolio',
     cmdOut: {
       [Command.AboutMe]: {},
@@ -39,11 +58,12 @@ const content: Record<Lang, I18nContent> = {
       [Command.Help]: {},
       [Command.Clear]: {}
     },
-    cmdDesc: enCmdDesc,
-    unknownCmdErr: 'command not recognized',
-    tabTitles: enTabTitles
+    present: 'Present',
+    tabTitles: enTabTitles,
+    unknownCmdErr: 'command not recognized'
   },
   [Lang.FR]: {
+    cmdDesc: frCmdDesc,
     cmdLinePrefix: 'visiteur@portfolio',
     cmdOut: {
       [Command.AboutMe]: {},
@@ -55,9 +75,9 @@ const content: Record<Lang, I18nContent> = {
       [Command.Help]: {},
       [Command.Clear]: {}
     },
-    cmdDesc: frCmdDesc,
-    unknownCmdErr: 'commande non reconnue',
-    tabTitles: frTabTitles
+    present: "Aujourd'hui",
+    tabTitles: frTabTitles,
+    unknownCmdErr: 'commande non reconnue'
   }
 }
 

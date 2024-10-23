@@ -6,8 +6,10 @@ import Commands, {
   type CommandEntry,
   type CommandInfo
 } from '@/shell/commands'
-import ContentTable from '@/components/ContentTable.vue'
-import { type Position, positions } from '@/content/positions'
+import ContentTable, { type TableColumn } from '@/components/ContentTable.vue'
+import { type Position, positions } from '@/constants/positions'
+import { techWeight } from '@/constants/tech-weights'
+import { formatWorkPeriod } from '@/utils/date-utils'
 
 const props = defineProps<{
   entry: CommandEntry
@@ -17,22 +19,51 @@ const cmdInfo: CommandInfo | undefined = Commands.find((cmd) => cmd.name === Com
 const passedArg = ref<CommandArgument | null>(null)
 const isArgValid = ref(false)
 
-const tableColumnFields: (keyof Position)[] = ['id', 'company', 'role', 'type', 'techs', 'period']
-
-const tableFormat = (field: string, obj: Record<string, any>): string => {
-  const position = obj as Position
-  const key = field as keyof Position
-  const val = position[key]
-
-  switch (key) {
-    case 'techs':
-      return ''
-    case 'period':
-      return ''
-    default:
-      return `${val}`
+const tableColumns: TableColumn[] = [
+  {
+    field: 'id',
+    width: '5rem',
+    customHeader: '#',
+    sortable: true
+  },
+  {
+    field: 'company',
+    width: '15rem',
+    format: (row: any) => {
+      const pos = row as Position
+      return pos.clientCompany ? `${pos.clientCompany} (${pos.company})` : `${pos.company}`
+    },
+    sortable: true
+  },
+  {
+    field: 'role',
+    width: '10rem',
+    sortable: true
+  },
+  {
+    field: 'type',
+    width: '10rem',
+    sortable: true
+  },
+  {
+    field: 'techs',
+    width: '25rem',
+    format: (row: any) => {
+      const pos = row as Position
+      return pos.techs.sort((a, b) => techWeight[b] - techWeight[a]).join(', ')
+    },
+    sortable: false
+  },
+  {
+    field: 'period',
+    width: '15rem',
+    format: (row: any) => {
+      const pos = row as Position
+      return formatWorkPeriod(pos.period)
+    },
+    sortable: true
   }
-}
+]
 
 onMounted(() => {
   if (!props.entry.argName) return
@@ -61,9 +92,10 @@ onMounted(() => {
   </div>
   <ContentTable
     ref-field="id"
-    :fields="tableColumnFields"
-    :format="tableFormat"
+    :columns="tableColumns"
     :entries="positions"
+    sort-by="id"
+    sort-dir="desc"
     v-else
   />
 </template>

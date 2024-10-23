@@ -4,7 +4,7 @@ export enum Company {
   Renault = 'Renault',
   Talan = 'Talan',
   Bell = 'Bell',
-  Deepspace = 'Deepspace'
+  Chainify = 'Chainify Labs'
 }
 
 export enum PositionRole {
@@ -29,11 +29,11 @@ export enum Tech {
   Blockchain = 'Blockchain',
   Cassandra = 'Cassandra',
   CSharp = 'C#',
-  CSSFlexbox = 'Flexbox',
+  CSSFlexbox = 'CSSFlexbox',
   CSSGrid = 'CSSGrid',
   Datastore = 'Datastore',
   DaisyUI = 'DaisyUI',
-  ElasticSearch = 'Elasticsearch',
+  Elasticsearch = 'Elasticsearch',
   Element = 'Element',
   ElementPlus = 'ElementPlus',
   Java = 'Java',
