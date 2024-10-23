@@ -8,7 +8,7 @@ import Commands, {
 } from '@/shell/commands'
 import ContentTable, { type TableColumn } from '@/components/ContentTable.vue'
 import { type Position, positions } from '@/constants/positions'
-import { techWeight } from '@/constants/tech-weights'
+import { stackWeight } from '@/constants/stack-weights'
 import { formatWorkPeriod } from '@/utils/date-utils'
 
 const props = defineProps<{
@@ -31,7 +31,7 @@ const tableColumns: TableColumn[] = [
     width: '15rem',
     format: (row: any) => {
       const pos = row as Position
-      return pos.clientCompany ? `${pos.clientCompany} (${pos.company})` : `${pos.company}`
+      return pos.clientCompany ? `${pos.clientCompany} (${pos.company} contract)` : `${pos.company}`
     },
     sortable: true
   },
@@ -46,11 +46,11 @@ const tableColumns: TableColumn[] = [
     sortable: true
   },
   {
-    field: 'techs',
+    field: 'stack',
     width: '25rem',
     format: (row: any) => {
       const pos = row as Position
-      return pos.techs.sort((a, b) => techWeight[b] - techWeight[a]).join(', ')
+      return pos.stack.sort((a, b) => stackWeight[b] - stackWeight[a]).join('/')
     },
     sortable: false
   },

@@ -20,7 +20,7 @@ export enum PositionType {
   Internship = 'Internship'
 }
 
-export enum Tech {
+export enum Stack {
   Angular = 'Angular',
   AngularJS = 'AngularJS',
   AngularMaterial = 'AngularMaterial',

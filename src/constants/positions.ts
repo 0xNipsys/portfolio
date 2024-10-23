@@ -1,4 +1,4 @@
-import { Company, PositionRole, PositionType, Tech } from '@/enums/work'
+import { Company, PositionRole, PositionType, Stack } from '@/enums/work'
 
 export interface Position {
   id: number
@@ -7,7 +7,7 @@ export interface Position {
   role: PositionRole
   isLeadRole: boolean
   type: PositionType
-  techs: Tech[]
+  stack: Stack[]
   period: [Date, Date?]
 }
 
@@ -18,7 +18,7 @@ export const positions: Position[] = [
     role: PositionRole.Backend,
     isLeadRole: false,
     type: PositionType.Internship,
-    techs: [Tech.Java, Tech.Jsoup],
+    stack: [Stack.Java, Stack.Jsoup],
     period: [new Date(2016, 0), new Date(2016, 2)]
   },
   {
@@ -27,16 +27,16 @@ export const positions: Position[] = [
     role: PositionRole.FullStack,
     isLeadRole: false,
     type: PositionType.WorkStudy,
-    techs: [
-      Tech.AngularJS,
-      Tech.Bootstrap,
-      Tech.Cassandra,
-      Tech.Datastore,
-      Tech.Elasticsearch,
-      Tech.Java,
-      Tech.Javascript,
-      Tech.Jsoup,
-      Tech.RabbitMq
+    stack: [
+      Stack.AngularJS,
+      Stack.Bootstrap,
+      Stack.Cassandra,
+      Stack.Datastore,
+      Stack.Elasticsearch,
+      Stack.Java,
+      Stack.Javascript,
+      Stack.Jsoup,
+      Stack.RabbitMq
     ],
     period: [new Date(2016, 6), new Date(2017, 10)]
   },
@@ -46,24 +46,24 @@ export const positions: Position[] = [
     role: PositionRole.FullStack,
     isLeadRole: false,
     type: PositionType.FullTime,
-    techs: [
-      Tech.Angular,
-      Tech.AngularJS,
-      Tech.AngularMaterial,
-      Tech.Cassandra,
-      Tech.CSSFlexbox,
-      Tech.Datastore,
-      Tech.Elasticsearch,
-      Tech.Java,
-      Tech.Javascript,
-      Tech.Jsoup,
-      Tech.PWA,
-      Tech.RabbitMq,
-      Tech.Redux,
-      Tech.Responsive,
-      Tech.SCSS,
-      Tech.SSR,
-      Tech.Typescript
+    stack: [
+      Stack.Angular,
+      Stack.AngularJS,
+      Stack.AngularMaterial,
+      Stack.Cassandra,
+      Stack.CSSFlexbox,
+      Stack.Datastore,
+      Stack.Elasticsearch,
+      Stack.Java,
+      Stack.Javascript,
+      Stack.Jsoup,
+      Stack.PWA,
+      Stack.RabbitMq,
+      Stack.Redux,
+      Stack.Responsive,
+      Stack.SCSS,
+      Stack.SSR,
+      Stack.Typescript
     ],
     period: [new Date(2017, 10), new Date(2019, 6)]
   },
@@ -74,13 +74,13 @@ export const positions: Position[] = [
     role: PositionRole.Frontend,
     isLeadRole: true,
     type: PositionType.FullTime,
-    techs: [
-      Tech.Angular,
-      Tech.AngularMaterial,
-      Tech.CSSFlexbox,
-      Tech.Redux,
-      Tech.SCSS,
-      Tech.Typescript
+    stack: [
+      Stack.Angular,
+      Stack.AngularMaterial,
+      Stack.CSSFlexbox,
+      Stack.Redux,
+      Stack.SCSS,
+      Stack.Typescript
     ],
     period: [new Date(2019, 8), new Date(2022, 0)]
   },
@@ -90,16 +90,16 @@ export const positions: Position[] = [
     role: PositionRole.FullStack,
     isLeadRole: false,
     type: PositionType.PartTime,
-    techs: [
-      Tech.AzureFunctions,
-      Tech.Blockchain,
-      Tech.CSharp,
-      Tech.CSSFlexbox,
-      Tech.DaisyUI,
-      Tech.React,
-      Tech.Serverless,
-      Tech.Web3,
-      Tech.Storybook
+    stack: [
+      Stack.AzureFunctions,
+      Stack.Blockchain,
+      Stack.CSharp,
+      Stack.CSSFlexbox,
+      Stack.DaisyUI,
+      Stack.React,
+      Stack.Serverless,
+      Stack.Web3,
+      Stack.Storybook
     ],
     period: [new Date(2022, 4), new Date(2023, 6)]
   },
@@ -110,18 +110,18 @@ export const positions: Position[] = [
     role: PositionRole.Frontend,
     isLeadRole: true,
     type: PositionType.FullTime,
-    techs: [
-      Tech.CSSFlexbox,
-      Tech.CSSGrid,
-      Tech.Element,
-      Tech.ElementPlus,
-      Tech.Responsive,
-      Tech.SCSS,
-      Tech.Storybook,
-      Tech.TailwindCSS,
-      Tech.Typescript,
-      Tech.Vue2,
-      Tech.Vue3
+    stack: [
+      Stack.CSSFlexbox,
+      Stack.CSSGrid,
+      Stack.Element,
+      Stack.ElementPlus,
+      Stack.Responsive,
+      Stack.SCSS,
+      Stack.Storybook,
+      Stack.TailwindCSS,
+      Stack.Typescript,
+      Stack.Vue2,
+      Stack.Vue3
     ],
     period: [new Date(2022, 1)]
   }

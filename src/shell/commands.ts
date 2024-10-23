@@ -1,6 +1,6 @@
 import { ref } from 'vue'
 import { Lang } from '@/enums/lang'
-import { Company, PositionRole, Tech } from '@/enums/work'
+import { Company, PositionRole, Stack } from '@/enums/work'
 
 export const ShellInput = ref('')
 export const ShellSubmission = ref('')
@@ -58,7 +58,7 @@ export default [
       },
       {
         name: 'tech',
-        options: enumToArg(Tech)
+        options: enumToArg(Stack)
       }
     ]
   },
@@ -71,7 +71,7 @@ export default [
       },
       {
         name: 'tech',
-        options: enumToArg(Tech)
+        options: enumToArg(Stack)
       }
     ]
   },
@@ -80,7 +80,7 @@ export default [
     arguments: [
       {
         name: 'tech',
-        options: enumToArg(Tech)
+        options: enumToArg(Stack)
       }
     ]
   },
