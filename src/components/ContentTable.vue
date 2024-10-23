@@ -62,7 +62,7 @@ const rows = computed(() => {
         <div
           v-for="col in columns"
           :key="col.field"
-          class="table-cell font-bold border border-b-0 border-darkgray/30 px-2 py-1"
+          class="table-cell font-bold border border-darkslategray text-darkgray/80 px-2 py-1"
           :style="{ width: col.width }"
         >
           {{ col.customHeader ?? col.field.toUpperCase() }}
@@ -70,11 +70,15 @@ const rows = computed(() => {
       </div>
     </div>
     <div class="table-row-group">
-      <div v-for="row in rows" :key="row[refField]" class="table-row">
+      <div
+        v-for="row in rows"
+        :key="row[refField]"
+        class="table-row text-olivedrab even:text-lightseagreen"
+      >
         <div
           v-for="col in columns"
           :key="col.field"
-          class="table-cell border border-darkgray/30 px-2 py-0.5"
+          class="table-cell border border-t-0 border-darkslategray px-2 py-0.5"
           :style="{ width: col.width }"
         >
           {{ col.format ? col.format(row) : row[col.field] }}
@@ -86,6 +90,7 @@ const rows = computed(() => {
 
 <style lang="scss" scoped>
 .table-cell {
+  position: relative;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -95,7 +100,22 @@ const rows = computed(() => {
   }
 }
 
-.table-row:not(:last-child) .table-cell {
-  border-bottom: none;
+.table-row-group {
+  .table-row {
+    &:first-child .table-cell::before {
+      position: absolute;
+      content: '';
+      z-index: 0;
+      top: 5px;
+      right: 5px;
+      left: 5px;
+      bottom: 5px;
+      background-color: rgba(55, 143, 210, 0.5);
+    }
+
+    &:not(:last-child) .table-cell {
+      border-bottom: none;
+    }
+  }
 }
 </style>
