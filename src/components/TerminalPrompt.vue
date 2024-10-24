@@ -62,14 +62,18 @@ function useNextEntry() {
   if (!props.entries || historyIndex.value === null) return
 
   if (historyIndex.value === props.entries.length - 1) {
-    historyIndex.value = null
-    inputText.value = ''
+    resetEntry()
     return
   }
 
   historyIndex.value++
   inputText.value = getPastInputStr(props.entries[historyIndex.value])
   updateCursorPosition()
+}
+
+function resetEntry() {
+  historyIndex.value = null
+  inputText.value = ''
 }
 
 function updateCursorPosition() {
@@ -108,6 +112,7 @@ function getPastInputStr(entry: CommandEntry) {
       @keydown.enter="submit"
       @keydown.up="usePreviousEntry"
       @keydown.down="useNextEntry"
+      @keydown.ctrl.c.exact="resetEntry"
       @beforeinput="historyIndex = null"
     />
   </div>
