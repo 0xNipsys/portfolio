@@ -1,12 +1,13 @@
 import { ref } from 'vue'
 import { Lang } from '@/enums/lang'
-import { Company, PositionRole, Stack } from '@/enums/work'
 
 export const ShellInput = ref('')
 export const ShellSubmission = ref('')
+export const ShellFullscreenCmd = ref<Command | null>(null)
 
 export interface CommandInfo {
   name: Command
+  fullscreen?: boolean
   arguments?: CommandArgument[]
   options?: string[]
 }
@@ -19,6 +20,7 @@ export interface CommandArgument {
 export interface CommandEntry {
   timestamp: number
   cmdName: Command
+  fullscreen?: boolean
   option?: string
   argName?: string
   argValue?: string
@@ -41,48 +43,19 @@ function enumToArg(o: { [s: string]: any } | ArrayLike<any>): string[] {
   })
 }
 
-export default [
+export const Commands: CommandInfo[] = [
   {
     name: Command.AboutMe
   },
   {
     name: Command.Experience,
-    arguments: [
-      {
-        name: 'company',
-        options: enumToArg(Company)
-      },
-      {
-        name: 'role',
-        options: enumToArg(PositionRole)
-      },
-      {
-        name: 'tech',
-        options: enumToArg(Stack)
-      }
-    ]
+    fullscreen: true
   },
   {
-    name: Command.ProProjects,
-    arguments: [
-      {
-        name: 'company',
-        options: enumToArg(Company)
-      },
-      {
-        name: 'tech',
-        options: enumToArg(Stack)
-      }
-    ]
+    name: Command.ProProjects
   },
   {
-    name: Command.PersoProjects,
-    arguments: [
-      {
-        name: 'tech',
-        options: enumToArg(Stack)
-      }
-    ]
+    name: Command.PersoProjects
   },
   {
     name: Command.SetLang,
@@ -97,4 +70,4 @@ export default [
   {
     name: Command.Clear
   }
-] satisfies CommandInfo[]
+]

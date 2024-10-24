@@ -81,7 +81,7 @@ function updateCursorPosition() {
 }
 
 function getPastInputStr(entry: CommandEntry) {
-  let pastInput = entry.cmdName
+  let pastInput = entry.cmdName as string
   if (entry.option) {
     pastInput += ` ${entry.option}`
   }

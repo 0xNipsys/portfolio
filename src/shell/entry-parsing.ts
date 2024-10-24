@@ -1,17 +1,19 @@
-import { Command, type CommandEntry } from '@/shell/commands'
+import { Command, type CommandEntry, Commands } from '@/shell/commands'
 
 function unrecognizedEntry(name: string): CommandEntry {
-  return newEntry(name as Command, undefined, undefined, undefined)
+  return newEntry(name as Command, undefined, undefined, undefined, undefined)
 }
 
 function newEntry(
   name: Command,
+  fullscreen: boolean | undefined,
   option: string | undefined,
   argName: string | undefined,
   argValue: string | undefined
 ): CommandEntry {
   return {
     cmdName: name,
+    fullscreen,
     option,
     argName,
     argValue,
@@ -25,8 +27,9 @@ export default function parseEntry(entry: string): CommandEntry {
     Command[
       (Object.entries(Command).find(([, v]) => v === split[0]) ?? [''])[0] as keyof typeof Command
     ]
+  const cmdInfo = Commands.find((cmd) => cmd.name === cmdName)
 
-  if (!cmdName) return unrecognizedEntry(entry)
+  if (!cmdName || !cmdInfo) return unrecognizedEntry(entry)
 
   let option = undefined
   let argName = undefined
@@ -40,5 +43,5 @@ export default function parseEntry(entry: string): CommandEntry {
     option = split[1]
   }
 
-  return newEntry(cmdName, option, argName, argValue)
+  return newEntry(cmdName, cmdInfo.fullscreen, option, argName, argValue)
 }

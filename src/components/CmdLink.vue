@@ -31,7 +31,7 @@ function submitCmd(): void {
 </script>
 
 <template>
-  <span class="font-bold text-darkgoldenrod cursor-pointer" @click="submitCmd">
+  <button class="font-bold text-darkgoldenrod cursor-pointer inline-flex" @click="submitCmd">
     <span>[{{ cmdName ?? cmdInfo?.name }}</span>
     <template v-if="cmdInfo">
       <template v-if="arg && arg.options">
@@ -43,6 +43,6 @@ function submitCmd(): void {
       <span v-else-if="cmdInfo.options" class="text-darkgray"
         >&nbsp;{{ cmdInfo.options.join('|') }}</span
       ></template
-    >]</span
-  >
+    >]
+  </button>
 </template>

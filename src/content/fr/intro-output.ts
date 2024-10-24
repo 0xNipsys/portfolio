@@ -5,5 +5,5 @@ export default {
   tabBrowsing:
     'Cette application porfolio peut être explorée en cliquant sur les onglets ci-dessus.',
   cmdBrowsing: 'Ou, pour une expérience terminal complète, commencez par',
-  clickable: '(<= également cliquable)'
+  clickable: '(<= cliquable)'
 } satisfies Record<string, string>

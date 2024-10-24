@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { CurrentLang, i18n } from '@/content/i18n'
 import { onMounted, ref } from 'vue'
-import Commands, { Command, type CommandEntry, type CommandInfo } from '@/shell/commands'
+import { Command, type CommandEntry, type CommandInfo, Commands } from '@/shell/commands'
 import { Lang } from '@/enums/lang'
 
 const props = defineProps<{

@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import Commands from '@/shell/commands'
 import { i18n, type I18nCmd } from '@/content/i18n'
 import CmdLink from '@/components/CmdLink.vue'
+import { Commands } from '@/shell/commands'
 </script>
 
 <template>
-  <div v-for="cmd in Commands" :key="cmd.name" class="flex flex-col leading-5 my-3">
+  <div v-for="cmd in Commands" :key="cmd.name" class="flex flex-col leading-5 my-2">
     <span class="text-olivedrab">- {{ i18n.cmdDesc[cmd.name].description }}</span>
     <CmdLink :cmd-info="cmd" />
 

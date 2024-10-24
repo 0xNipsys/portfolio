@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, ref, watch } from 'vue'
 import { CurrentLang } from '@/content/i18n'
 import dayjs from 'dayjs'
 
@@ -15,9 +15,37 @@ const props = defineProps<{
   refField: string
   columns: TableColumn[]
   entries: Record<string, any>[]
+  lastKeyDown: KeyboardEvent | null
   sortBy?: string
   sortDir?: 'asc' | 'desc'
 }>()
+
+const emit = defineEmits<{
+  (e: 'select', entry: Record<string, any>): void
+}>()
+
+const selectedIdx = ref(0)
+
+watch(
+  () => props.lastKeyDown,
+  (e: KeyboardEvent | null) => {
+    switch (e?.key) {
+      case 'ArrowUp':
+        selectedIdx.value = selectedIdx.value <= 0 ? rows.value.length - 1 : selectedIdx.value - 1
+        break
+      case 'ArrowDown':
+        selectedIdx.value = selectedIdx.value >= rows.value.length - 1 ? 0 : selectedIdx.value + 1
+        break
+      case 'Enter':
+        selectEntry()
+        break
+    }
+  }
+)
+
+function selectEntry() {
+  emit('select', rows.value[selectedIdx.value])
+}
 
 const rows = computed(() => {
   if (!props.sortBy || !props.sortDir) return props.entries
@@ -71,9 +99,12 @@ const rows = computed(() => {
     </div>
     <div class="table-row-group">
       <div
-        v-for="row in rows"
+        v-for="(row, i) in rows"
         :key="row[refField]"
-        class="table-row text-olivedrab even:text-lightseagreen"
+        class="table-row text-olivedrab cursor-pointer even:text-lightseagreen"
+        :class="{ selected: i === selectedIdx }"
+        @mouseover="selectedIdx = i"
+        @click="selectEntry"
       >
         <div
           v-for="col in columns"
@@ -102,7 +133,7 @@ const rows = computed(() => {
 
 .table-row-group {
   .table-row {
-    &:first-child .table-cell::before {
+    &.selected .table-cell::before {
       position: absolute;
       content: '';
       z-index: 0;
