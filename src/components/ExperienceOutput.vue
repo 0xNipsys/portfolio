@@ -14,13 +14,13 @@ const selected = ref<Position | null>(null)
 const tableColumns: TableColumn[] = [
   {
     field: 'id',
-    width: '5rem',
+    width: '5%',
     customHeader: '#',
     sortable: true
   },
   {
     field: 'company',
-    width: '15rem',
+    width: '20%',
     format: (row: any) => {
       const pos = row as Position
       return pos.clientCompany ? `${pos.clientCompany} (${pos.company} contract)` : `${pos.company}`
@@ -29,17 +29,17 @@ const tableColumns: TableColumn[] = [
   },
   {
     field: 'role',
-    width: '10rem',
+    width: '15%',
     sortable: true
   },
   {
     field: 'type',
-    width: '10rem',
+    width: '15%',
     sortable: true
   },
   {
     field: 'stack',
-    width: '25rem',
+    width: 'auto',
     format: (row: any) => {
       const pos = row as Position
       return pos.stack.sort((a, b) => stackWeight[b] - stackWeight[a]).join('/')
@@ -48,7 +48,7 @@ const tableColumns: TableColumn[] = [
   },
   {
     field: 'period',
-    width: '15rem',
+    width: '15%',
     format: (row: any) => {
       const pos = row as Position
       return formatWorkPeriod(pos.period)
