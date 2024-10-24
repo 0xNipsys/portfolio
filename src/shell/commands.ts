@@ -51,12 +51,12 @@ export const Commands: CommandInfo[] = [
     name: Command.Experience,
     fullscreen: true
   },
-  {
+  /*{
     name: Command.ProProjects
   },
   {
     name: Command.PersoProjects
-  },
+  },*/
   {
     name: Command.SetLang,
     options: enumToArg(Lang)

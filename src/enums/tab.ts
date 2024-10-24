@@ -1,7 +1,7 @@
 export enum Tab {
   MainTab = 'MainTab',
   AboutMe = 'AboutMe',
-  Experience = 'Experience',
-  ProfessionalProjects = 'ProfessionalProjects',
-  PersonalProjects = 'PersonalProjects'
+  Experience = 'Experience'
+  /*ProfessionalProjects = 'ProfessionalProjects',
+  PersonalProjects = 'PersonalProjects'*/
 }

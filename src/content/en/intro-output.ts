@@ -3,6 +3,6 @@ export default {
   iam: "I'm",
   workTitle: ', a senior Web app developer.',
   tabBrowsing: 'This porfolio app can be browsed by clicking on the tabs above.',
-  cmdBrowsing: 'Or, for the full command line experience, get started with',
+  cmdBrowsing: 'Or, for the command line experience, get started with',
   clickable: '(<= clickable)'
 } satisfies Record<string, string>
