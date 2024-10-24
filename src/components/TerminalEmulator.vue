@@ -76,7 +76,7 @@ function exitFullscreen() {
         <TerminalPrompt ref="mainPrompt" :entries="cmdEntries" />
       </template>
     </div>
-    <div v-else class="size-full flex flex-col">
+    <div v-else class="size-full flex flex-col" @click="focusKeyListener">
       <div class="flex-auto">
         <ExperienceOutput
           v-if="ShellFullscreenCmd === Command.Experience"
