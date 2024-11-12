@@ -1,10 +1,16 @@
 export enum Company {
   Yanport = 'Yanport',
   Onepoint = 'Onepoint',
-  Renault = 'Renault',
+  RenaultDigital = 'Renault Digital',
   Talan = 'Talan',
   Bell = 'Bell',
   Chainify = 'Chainify Labs'
+}
+
+export enum CompanySize {
+  Small,
+  Medium,
+  Large
 }
 
 export enum PositionRole {

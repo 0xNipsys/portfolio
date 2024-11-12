@@ -94,11 +94,11 @@ function exitFullscreen() {
           onblur="this.focus()"
         />
 
-        <div class="flex-auto text-right">
+        <div class="flex-auto text-right text-sm">
           full-screen mode /
-          <span class="font-bold text-darkgoldenrod cursor-pointer" @click="exitFullscreen"
-            >[exit]</span
-          >
+          <button class="font-bold text-darkgoldenrod cursor-pointer" @click="exitFullscreen">
+            [exit]
+          </button>
           or &lt;CTRL+C&gt;
         </div>
       </div>

@@ -7,7 +7,8 @@ export interface Position {
   role: PositionRole
   isLeadRole: boolean
   type: PositionType
-  stack: Stack[]
+  feStack: Stack[]
+  beStack: Stack[]
   period: [Date, Date?]
 }
 
@@ -18,7 +19,8 @@ export const positions: Position[] = [
     role: PositionRole.Backend,
     isLeadRole: false,
     type: PositionType.Internship,
-    stack: [Stack.Java, Stack.Jsoup],
+    feStack: [],
+    beStack: [Stack.Java, Stack.Jsoup],
     period: [new Date(2016, 0), new Date(2016, 2)]
   },
   {
@@ -27,14 +29,12 @@ export const positions: Position[] = [
     role: PositionRole.FullStack,
     isLeadRole: false,
     type: PositionType.WorkStudy,
-    stack: [
-      Stack.AngularJS,
-      Stack.Bootstrap,
+    feStack: [Stack.AngularJS, Stack.Bootstrap, Stack.Javascript],
+    beStack: [
       Stack.Cassandra,
       Stack.Datastore,
       Stack.Elasticsearch,
       Stack.Java,
-      Stack.Javascript,
       Stack.Jsoup,
       Stack.RabbitMq
     ],
@@ -46,35 +46,37 @@ export const positions: Position[] = [
     role: PositionRole.FullStack,
     isLeadRole: false,
     type: PositionType.FullTime,
-    stack: [
+    feStack: [
       Stack.Angular,
       Stack.AngularJS,
       Stack.AngularMaterial,
-      Stack.Cassandra,
       Stack.CSSFlexbox,
-      Stack.Datastore,
-      Stack.Elasticsearch,
-      Stack.Java,
       Stack.Javascript,
-      Stack.Jsoup,
       Stack.PWA,
-      Stack.RabbitMq,
       Stack.Redux,
       Stack.Responsive,
       Stack.SCSS,
       Stack.SSR,
       Stack.Typescript
     ],
+    beStack: [
+      Stack.Cassandra,
+      Stack.Datastore,
+      Stack.Elasticsearch,
+      Stack.Java,
+      Stack.Jsoup,
+      Stack.RabbitMq
+    ],
     period: [new Date(2017, 10), new Date(2019, 6)]
   },
   {
     id: 4,
     company: Company.Onepoint,
-    clientCompany: Company.Renault,
+    clientCompany: Company.RenaultDigital,
     role: PositionRole.Frontend,
     isLeadRole: true,
     type: PositionType.FullTime,
-    stack: [
+    feStack: [
       Stack.Angular,
       Stack.AngularMaterial,
       Stack.CSSFlexbox,
@@ -82,6 +84,7 @@ export const positions: Position[] = [
       Stack.SCSS,
       Stack.Typescript
     ],
+    beStack: [],
     period: [new Date(2019, 8), new Date(2022, 0)]
   },
   {
@@ -90,17 +93,17 @@ export const positions: Position[] = [
     role: PositionRole.FullStack,
     isLeadRole: false,
     type: PositionType.PartTime,
-    stack: [
-      Stack.AzureFunctions,
-      Stack.Blockchain,
-      Stack.CSharp,
+    feStack: [
       Stack.CSSFlexbox,
+      Stack.CSSGrid,
       Stack.DaisyUI,
       Stack.React,
-      Stack.Serverless,
-      Stack.Web3,
-      Stack.Storybook
+      Stack.Responsive,
+      Stack.SCSS,
+      Stack.Storybook,
+      Stack.Typescript
     ],
+    beStack: [Stack.AzureFunctions, Stack.Blockchain, Stack.CSharp, Stack.Serverless, Stack.Web3],
     period: [new Date(2022, 4), new Date(2023, 6)]
   },
   {
@@ -110,7 +113,7 @@ export const positions: Position[] = [
     role: PositionRole.Frontend,
     isLeadRole: true,
     type: PositionType.FullTime,
-    stack: [
+    feStack: [
       Stack.CSSFlexbox,
       Stack.CSSGrid,
       Stack.Element,
@@ -123,6 +126,7 @@ export const positions: Position[] = [
       Stack.Vue2,
       Stack.Vue3
     ],
+    beStack: [],
     period: [new Date(2022, 1)]
   }
 ]

@@ -10,6 +10,8 @@ import enCmdDesc from '@/content/en/cmd-desc'
 import frCmdDesc from '@/content/fr/cmd-desc'
 import enTabTitles from '@/content/en/tab-titles'
 import frTabTitles from '@/content/fr/tab-titles'
+import enPositions from '@/content/en/positions'
+import frPositions from '@/content/fr/positions'
 import dayjs from 'dayjs'
 import 'dayjs/locale/fr'
 import 'dayjs/locale/en'
@@ -19,6 +21,7 @@ export interface I18nContent {
   cmdLinePrefix: string
   cmdOut: Record<Command, Record<string, string>>
   tabTitles: Record<Tab, string>
+  positions: Record<number, I18nPosition>
   present: string
   unknownCmdErr: string
 }
@@ -26,6 +29,16 @@ export interface I18nContent {
 export interface I18nCmd {
   description: string
   argsDesc?: Record<string, string>
+}
+
+export interface I18nPosition {
+  description: string
+  beAccomplishments: string[]
+  feAccomplishments: string[]
+}
+
+export interface I18nCompany {
+  mission: string
 }
 
 export const CurrentLang = ref(Lang.EN)
@@ -58,6 +71,7 @@ const content: Record<Lang, I18nContent> = {
       [Command.Help]: {},
       [Command.Clear]: {}
     },
+    positions: enPositions,
     present: 'Present',
     tabTitles: enTabTitles,
     unknownCmdErr: 'command not recognized'
@@ -75,6 +89,7 @@ const content: Record<Lang, I18nContent> = {
       [Command.Help]: {},
       [Command.Clear]: {}
     },
+    positions: frPositions,
     present: "Aujourd'hui",
     tabTitles: frTabTitles,
     unknownCmdErr: 'commande non reconnue'
