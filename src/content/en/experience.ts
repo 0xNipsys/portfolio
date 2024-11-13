@@ -1,5 +1,5 @@
 import positions from '@/content/en/positions'
-import { Company, CompanySize, PositionRole, PositionType } from '@/enums/work'
+import { Company, CompanySector, CompanySize, PositionRole, PositionType } from '@/enums/work'
 import type { I18nExperience } from '@/content/interfaces'
 
 export default {
@@ -14,6 +14,11 @@ export default {
   companyInfo: 'company info',
   accomplishments: 'accomplishments',
   developmentStack: 'development stack',
+  sector: 'sector',
+  size: 'size',
+  location: 'location',
+  country: 'country',
+  introduction: 'introduction',
   positions: positions,
   positionRoles: {
     [PositionRole.Backend]: 'Back-End',
@@ -25,6 +30,12 @@ export default {
     [PositionType.PartTime]: 'Part-Time',
     [PositionType.WorkStudy]: 'Work-Study',
     [PositionType.Internship]: 'Internship'
+  },
+  companySector: {
+    [CompanySector.RealEstate]: 'Real Estate',
+    [CompanySector.ItConsulting]: 'IT Consulting',
+    [CompanySector.Telecommunications]: 'Telecommunications',
+    [CompanySector.BlockchainServices]: 'Blockchain Services'
   },
   companySizes: {
     [CompanySize.XS]: '1-10 employees',

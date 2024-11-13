@@ -133,18 +133,46 @@ const tableColumns = computed<TableColumn[]>(() => [
     </div>
 
     <div class="flex flex-auto">
-      <div class="basis-1/3 border-r border-darkslategray">
+      <div class="basis-1/3 border-r border-darkslategray" v-if="selectedPosCompany">
         <div>
           <div class="border-y border-darkslategray">
             <div class="bg-darkslategray px-2 py-1 w-fit">{{ i18n.experience.companyInfo }}</div>
           </div>
-          <div class="px-5 py-3">
+          <div class="flex flex-wrap px-5 py-3 gap-y-3">
             <div
+              class="flex-auto"
               :style="{
-                backgroundColor: selectedPosCompany?.logoWrapColor
+                backgroundColor: selectedPosCompany.logoWrapColor
               }"
             >
-              <img :src="selectedPosCompany?.logo" alt="img" class="aspect-video w-1/2 mx-auto" />
+              <img :src="selectedPosCompany.logo" alt="img" class="aspect-video w-1/2 mx-auto" />
+            </div>
+
+            <div class="grid grid-cols-2 gap-y-3 w-full">
+              <div class="flex flex-col">
+                <span class="text-lightseagreen font-bold">{{ i18n.experience.sector }}</span>
+                <span>{{ i18n.experience.companySector[selectedPosCompany.sector] }}</span>
+              </div>
+
+              <div class="flex flex-col">
+                <span class="text-lightseagreen font-bold">{{ i18n.experience.location }}</span>
+                <span>{{ selectedPosCompany.location }}</span>
+              </div>
+
+              <div class="flex flex-col">
+                <span class="text-lightseagreen font-bold">{{ i18n.experience.size }}</span>
+                <span>{{ i18n.experience.companySizes[selectedPosCompany.size] }}</span>
+              </div>
+
+              <div class="flex flex-col">
+                <span class="text-lightseagreen font-bold">{{ i18n.experience.country }}</span>
+                <span>{{ selectedPosCompany.country }}</span>
+              </div>
+            </div>
+
+            <div class="flex-auto">
+              <span class="text-lightseagreen font-bold">{{ i18n.experience.introduction }}</span>
+              <p>{{ i18n.experience.companyIntroductions[selectedPosition.company] }}</p>
             </div>
           </div>
         </div>

@@ -1,6 +1,6 @@
 import { Command } from '@/shell/commands'
 import { Tab } from '@/enums/tab'
-import { Company, CompanySize, PositionRole, PositionType } from '@/enums/work'
+import { Company, CompanySector, CompanySize, PositionRole, PositionType } from '@/enums/work'
 
 export interface I18nContent {
   cmdDesc: Record<Command, I18nCmd>
@@ -36,9 +36,15 @@ export interface I18nExperience {
   companyInfo: string
   accomplishments: string
   developmentStack: string
+  sector: string
+  size: string
+  location: string
+  country: string
+  introduction: string
   positions: Record<number, I18nPosition>
   positionRoles: Record<PositionRole, string>
   positionTypes: Record<PositionType, string>
+  companySector: Record<CompanySector, string>
   companySizes: Record<CompanySize, string>
   companyIntroductions: Record<Company, string>
 }
