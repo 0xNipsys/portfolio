@@ -1,9 +1,9 @@
 import { Company, CompanySector, CompanySize } from '@/enums/work'
-import bellLogo from '@/assets/logos/bell.png'
-import chainifyLogo from '@/assets/logos/chainify.png'
-import onepointLogo from '@/assets/logos/onepoint.png'
-import renaultDigitalLogo from '@/assets/logos/renault-digital.png'
-import yanportLogo from '@/assets/logos/yanport.png'
+import bellLogo from '@/assets/logos/bell.webp'
+import chainifyLogo from '@/assets/logos/chainify.webp'
+import onepointLogo from '@/assets/logos/onepoint.webp'
+import renaultDigitalLogo from '@/assets/logos/renault-digital.webp'
+import yanportLogo from '@/assets/logos/yanport.webp'
 
 export interface CompanyInfo {
   logo: string
