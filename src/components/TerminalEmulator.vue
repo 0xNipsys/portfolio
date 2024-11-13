@@ -8,6 +8,7 @@ import HelpOutput from '@/components/HelpOutput.vue'
 import SetLangOutput from '@/components/SetLangOutput.vue'
 import parseEntry from '@/shell/entry-parsing'
 import ExperienceOutput from '@/components/ExperienceOutput.vue'
+import { i18n } from '@/content/i18n'
 
 const cmdEntries = ref<CommandEntry[]>([])
 const initialSubmit = ref(false)
@@ -95,11 +96,11 @@ function exitFullscreen() {
         />
 
         <div class="flex-auto text-right text-sm">
-          full-screen mode /
+          {{ i18n.fullScreenMode }} /
           <button class="font-bold text-darkgoldenrod cursor-pointer" @click="exitFullscreen">
-            [exit]
+            [{{ i18n.exit }}]
           </button>
-          or &lt;CTRL+C&gt;
+          {{ i18n.or }} &lt;{{ i18n.ctrlC }}&gt;
         </div>
       </div>
     </div>

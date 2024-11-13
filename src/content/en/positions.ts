@@ -1,4 +1,4 @@
-import type { I18nPosition } from '@/content/i18n'
+import type { I18nPosition } from '@/content/interfaces'
 
 export default {
   1: {

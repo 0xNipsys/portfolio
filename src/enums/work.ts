@@ -7,10 +7,22 @@ export enum Company {
   Chainify = 'Chainify Labs'
 }
 
+export enum CompanySector {
+  RealEstate = 'Real-Estate',
+  ItConsulting = 'It-Consulting',
+  Telecommunications = 'Telecommunications',
+  BlockchainServices = 'BlockchainServices'
+}
+
 export enum CompanySize {
-  Small,
-  Medium,
-  Large
+  XS = 'XS',
+  SM = 'SM',
+  MD = 'MD',
+  LG = 'LG',
+  XL = 'XL',
+  XXL = 'XXL',
+  XXXL = 'XXXL',
+  XXXXL = 'XXXXL'
 }
 
 export enum PositionRole {

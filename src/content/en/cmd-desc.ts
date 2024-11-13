@@ -1,5 +1,5 @@
 import { Command } from '@/shell/commands'
-import type { I18nCmd } from '@/content/i18n'
+import type { I18nCmd } from '@/content/interfaces'
 
 export default {
   [Command.AboutMe]: {

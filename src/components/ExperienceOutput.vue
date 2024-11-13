@@ -2,7 +2,7 @@
 import TermTable, { type TableColumn } from '@/components/TermTable.vue'
 import { type Position, positions } from '@/constants/positions'
 import { stackWeight } from '@/constants/stack-weights'
-import { formatCompany, formatWorkPeriod } from '@/utils/position-formatting'
+import { formatWorkPeriod } from '@/utils/position-formatting'
 import { computed, ref, watch } from 'vue'
 import { i18n } from '@/content/i18n'
 import { Companies } from '@/constants/companies'
@@ -13,9 +13,10 @@ const props = defineProps<{
 
 const selectedPosition = ref<Position | null>(null)
 const selectedPosCompany = computed(() =>
-  selectedPosition.value
-    ? Companies[selectedPosition.value.clientCompany ?? selectedPosition.value.company]
-    : null
+  selectedPosition.value ? Companies[selectedPosition.value.company] : null
+)
+const selectedPosInfo = computed(() =>
+  selectedPosition.value ? i18n.value.experience.positions[selectedPosition.value.id] : null
 )
 
 watch(
@@ -33,32 +34,37 @@ function clearSelectedPosition() {
   selectedPosition.value = null
 }
 
-const tableColumns: TableColumn[] = [
+const tableColumns = computed<TableColumn[]>(() => [
   {
     field: 'id',
     width: '5%',
-    customHeader: '#',
+    header: '#',
     sortable: true
   },
   {
     field: 'company',
-    width: '25%',
-    format: (row: any) => formatCompany(row as Position),
+    width: '20%',
+    header: i18n.value.experience.company,
     sortable: true
   },
   {
     field: 'role',
-    width: '10%',
+    width: '13%',
+    header: i18n.value.experience.role,
+    format: (row: any) => i18n.value.experience.positionRoles[(row as Position).role],
     sortable: true
   },
   {
     field: 'type',
-    width: '10%',
+    width: '13%',
+    header: i18n.value.experience.type,
+    format: (row: any) => i18n.value.experience.positionTypes[(row as Position).type],
     sortable: true
   },
   {
     field: 'stack',
     width: 'auto',
+    header: i18n.value.experience.stack,
     format: (row: any) => {
       const pos = row as Position
       return [...pos.feStack, ...pos.beStack]
@@ -70,10 +76,11 @@ const tableColumns: TableColumn[] = [
   {
     field: 'period',
     width: '18%',
+    header: i18n.value.experience.period,
     format: (row: any) => formatWorkPeriod(row as Position),
     sortable: true
   }
-]
+])
 </script>
 
 <template>
@@ -92,27 +99,35 @@ const tableColumns: TableColumn[] = [
     <div class="flex items-center gap-x-5">
       <div class="flex flex-auto items-center border-y-2 border-darkslategray text-base">
         <div class="text-lg font-bold bg-steelblue/60 px-5 py-1">
-          #{{ selectedPosition.id }}&nbsp;{{ formatCompany(selectedPosition) }}
+          #{{ selectedPosition.id }}&nbsp;{{ selectedPosition.company }}
         </div>
-        <div class="flex-auto pl-7">{{ selectedPosition.role }} / {{ selectedPosition.type }}</div>
+        <div class="flex-auto pl-7">
+          {{ i18n.experience.positionRoles[selectedPosition.role] }} /
+          {{ i18n.experience.positionTypes[selectedPosition.type] }}
+          <template v-if="selectedPosition.consultingFirm">
+            / {{ i18n.experience.contractorFor }} {{ selectedPosition.consultingFirm }}
+          </template>
+        </div>
         <div class="pr-7">{{ formatWorkPeriod(selectedPosition) }}</div>
       </div>
 
       <div class="text-steelblue text-right">
         <button class="font-bold text-darkgoldenrod cursor-pointer" @click="clearSelectedPosition">
-          [back]
+          [{{ i18n.back }}]
         </button>
-        or &lt;BACKSPACE&gt;
+        {{ i18n.or }} &lt;{{ i18n.backspace }}&gt;
       </div>
     </div>
 
     <div>
       <div class="border-b border-darkslategray">
-        <div class="bg-darkslategray px-2 py-1 w-fit">position description</div>
+        <div class="bg-darkslategray px-2 py-1 w-fit">
+          {{ i18n.experience.positionDescription }}
+        </div>
       </div>
       <div class="px-5 py-3">
         <p>
-          {{ i18n.positions[selectedPosition.id].description }}
+          {{ selectedPosInfo?.description }}
         </p>
       </div>
     </div>
@@ -121,7 +136,7 @@ const tableColumns: TableColumn[] = [
       <div class="basis-1/3 border-r border-darkslategray">
         <div>
           <div class="border-y border-darkslategray">
-            <div class="bg-darkslategray px-2 py-1 w-fit">company info</div>
+            <div class="bg-darkslategray px-2 py-1 w-fit">{{ i18n.experience.companyInfo }}</div>
           </div>
           <div class="px-5 py-3">
             <div
@@ -137,37 +152,33 @@ const tableColumns: TableColumn[] = [
       <div class="basis-2/3">
         <div>
           <div class="border-y border-darkslategray">
-            <div class="bg-darkslategray px-2 py-1 w-fit">accomplishments</div>
+            <div class="bg-darkslategray px-2 py-1 w-fit">
+              {{ i18n.experience.accomplishments }}
+            </div>
           </div>
           <div class="px-5 py-3">
             <div class="flex">
               <div class="flex-1">
                 <span class="text-lightseagreen font-bold">front-end</span>
                 <ul>
-                  <template v-if="i18n.positions[selectedPosition.id].feAccomplishments.length">
-                    <li
-                      v-for="entry in i18n.positions[selectedPosition.id].feAccomplishments"
-                      :key="entry"
-                    >
+                  <template v-if="selectedPosInfo?.feAccomplishments.length">
+                    <li v-for="entry in selectedPosInfo?.feAccomplishments" :key="entry">
                       {{ entry }}
                     </li>
                   </template>
-                  <li v-else>N/A</li>
+                  <li class="opacity-60" v-else>{{ i18n.na }}</li>
                 </ul>
               </div>
 
               <div class="flex-1">
                 <span class="text-lightseagreen font-bold">back-end</span>
                 <ul>
-                  <template v-if="i18n.positions[selectedPosition.id].beAccomplishments.length">
-                    <li
-                      v-for="entry in i18n.positions[selectedPosition.id].beAccomplishments"
-                      :key="entry"
-                    >
+                  <template v-if="selectedPosInfo?.beAccomplishments.length">
+                    <li v-for="entry in selectedPosInfo?.beAccomplishments" :key="entry">
                       {{ entry }}
                     </li>
                   </template>
-                  <li v-else>N/A</li>
+                  <li class="opacity-60" v-else>{{ i18n.na }}</li>
                 </ul>
               </div>
             </div>
@@ -175,7 +186,9 @@ const tableColumns: TableColumn[] = [
         </div>
         <div>
           <div class="border-y border-darkslategray">
-            <div class="bg-darkslategray px-2 py-1 w-fit">development stack</div>
+            <div class="bg-darkslategray px-2 py-1 w-fit">
+              {{ i18n.experience.developmentStack }}
+            </div>
           </div>
           <div class="px-5 py-3">
             <div class="flex">
@@ -187,7 +200,7 @@ const tableColumns: TableColumn[] = [
                       {{ entry }}
                     </li>
                   </template>
-                  <li v-else>N/A</li>
+                  <li class="opacity-60" v-else>{{ i18n.na }}</li>
                 </ul>
               </div>
               <div class="flex-1">
@@ -198,7 +211,7 @@ const tableColumns: TableColumn[] = [
                       {{ entry }}
                     </li>
                   </template>
-                  <li v-else>N/A</li>
+                  <li class="opacity-60" v-else>{{ i18n.na }}</li>
                 </ul>
               </div>
             </div>

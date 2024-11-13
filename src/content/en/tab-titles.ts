@@ -3,7 +3,5 @@ import { Tab } from '@/enums/tab'
 export default {
   [Tab.MainTab]: 'Terminal',
   [Tab.AboutMe]: 'About Me',
-  [Tab.Experience]: 'Experience',
-  [Tab.ProfessionalProjects]: 'Professional Projects',
-  [Tab.PersonalProjects]: 'Personal Projects'
+  [Tab.Experience]: 'Experience'
 } satisfies Record<Tab, string>

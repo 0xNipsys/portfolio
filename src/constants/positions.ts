@@ -3,7 +3,7 @@ import { Company, PositionRole, PositionType, Stack } from '@/enums/work'
 export interface Position {
   id: number
   company: Company
-  clientCompany?: Company
+  consultingFirm?: Company
   role: PositionRole
   isLeadRole: boolean
   type: PositionType
@@ -71,8 +71,8 @@ export const positions: Position[] = [
   },
   {
     id: 4,
-    company: Company.Onepoint,
-    clientCompany: Company.RenaultDigital,
+    company: Company.RenaultDigital,
+    consultingFirm: Company.Onepoint,
     role: PositionRole.Frontend,
     isLeadRole: true,
     type: PositionType.FullTime,
@@ -108,8 +108,8 @@ export const positions: Position[] = [
   },
   {
     id: 6,
-    company: Company.Talan,
-    clientCompany: Company.Bell,
+    company: Company.Bell,
+    consultingFirm: Company.Talan,
     role: PositionRole.Frontend,
     isLeadRole: true,
     type: PositionType.FullTime,

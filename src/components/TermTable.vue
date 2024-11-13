@@ -6,7 +6,7 @@ import dayjs from 'dayjs'
 export interface TableColumn {
   field: string
   width: string
-  customHeader?: string
+  header: string
   format?: (row: Record<string, any>) => string
   sortable?: boolean
 }
@@ -94,7 +94,7 @@ const rows = computed(() => {
             class="table-cell font-bold border border-darkslategray text-darkgray/80 px-2 py-1"
             :style="{ width: col.width }"
           >
-            {{ col.customHeader ?? col.field.toUpperCase() }}
+            {{ col.header.toUpperCase() }}
           </div>
         </div>
       </div>

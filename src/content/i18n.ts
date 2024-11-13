@@ -1,6 +1,5 @@
 import { Lang } from '@/enums/lang'
 import { computed, ref, watch } from 'vue'
-import { Tab } from '@/enums/tab'
 import { Command } from '@/shell/commands'
 import enSetLang from '@/content/en/setLang-output'
 import frSetLang from '@/content/fr/setLang-output'
@@ -10,36 +9,12 @@ import enCmdDesc from '@/content/en/cmd-desc'
 import frCmdDesc from '@/content/fr/cmd-desc'
 import enTabTitles from '@/content/en/tab-titles'
 import frTabTitles from '@/content/fr/tab-titles'
-import enPositions from '@/content/en/positions'
-import frPositions from '@/content/fr/positions'
+import enExperience from '@/content/en/experience'
+import frExperience from '@/content/fr/experience'
 import dayjs from 'dayjs'
 import 'dayjs/locale/fr'
 import 'dayjs/locale/en'
-
-export interface I18nContent {
-  cmdDesc: Record<Command, I18nCmd>
-  cmdLinePrefix: string
-  cmdOut: Record<Command, Record<string, string>>
-  tabTitles: Record<Tab, string>
-  positions: Record<number, I18nPosition>
-  present: string
-  unknownCmdErr: string
-}
-
-export interface I18nCmd {
-  description: string
-  argsDesc?: Record<string, string>
-}
-
-export interface I18nPosition {
-  description: string
-  beAccomplishments: string[]
-  feAccomplishments: string[]
-}
-
-export interface I18nCompany {
-  mission: string
-}
+import type { I18nContent } from '@/content/interfaces'
 
 export const CurrentLang = ref(Lang.EN)
 watch(
@@ -71,9 +46,16 @@ const content: Record<Lang, I18nContent> = {
       [Command.Help]: {},
       [Command.Clear]: {}
     },
-    positions: enPositions,
-    present: 'Present',
+    experience: enExperience,
     tabTitles: enTabTitles,
+    na: 'N/A',
+    back: 'back',
+    backspace: 'BACKSPACE',
+    ctrlC: 'CTRL+C',
+    or: 'or',
+    exit: 'exit',
+    fullScreenMode: 'full-screen mode',
+    present: 'Present',
     unknownCmdErr: 'command not recognized'
   },
   [Lang.FR]: {
@@ -89,9 +71,16 @@ const content: Record<Lang, I18nContent> = {
       [Command.Help]: {},
       [Command.Clear]: {}
     },
-    positions: frPositions,
-    present: "Aujourd'hui",
+    experience: frExperience,
     tabTitles: frTabTitles,
+    na: 'N/A',
+    back: 'retour',
+    backspace: 'BACKSPACE',
+    ctrlC: 'CTRL+C',
+    or: 'ou',
+    exit: 'quitter',
+    fullScreenMode: 'mode plein écran',
+    present: "Aujourd'hui",
     unknownCmdErr: 'commande non reconnue'
   }
 }

@@ -16,9 +16,3 @@ export function formatWorkPeriod(position: Position): string {
 
   return `${capitalize(from)} - ${capitalize(to)}`
 }
-
-export function formatCompany(position: Position): string {
-  return position.clientCompany
-    ? `${position.clientCompany} (${position.company} contract)`
-    : `${position.company}`
-}
