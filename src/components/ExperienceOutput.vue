@@ -119,7 +119,7 @@ const tableColumns = computed<TableColumn[]>(() => [
       </div>
     </div>
 
-    <div>
+    <div class="flex-auto">
       <div class="border-b border-darkslategray">
         <div class="bg-darkslategray px-2 py-1 w-fit">
           {{ i18n.experience.positionDescription }}
@@ -132,7 +132,7 @@ const tableColumns = computed<TableColumn[]>(() => [
       </div>
     </div>
 
-    <div class="flex flex-auto">
+    <div class="flex">
       <div class="basis-1/3 border-r border-darkslategray" v-if="selectedPosCompany">
         <div>
           <div class="border-y border-darkslategray">

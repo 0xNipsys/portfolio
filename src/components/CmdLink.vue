@@ -11,7 +11,6 @@ const props = defineProps<{
 function submitCmd(): void {
   const cmd = props.cmdName ?? props.cmdInfo?.name ?? ''
   if (!cmd) return
-  Shells.MainTab.input = ''
 
   if (props.cmdInfo?.options?.length) {
     Shells.MainTab.input = `${cmd} `
@@ -22,7 +21,7 @@ function submitCmd(): void {
     return
   }
 
-  Shells.MainTab.input = cmd
+  Shells.MainTab.simCmd = cmd
 }
 </script>
 

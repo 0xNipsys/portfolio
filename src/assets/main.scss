@@ -8,3 +8,24 @@ html, body {
   font-family: 'Inconsolata', monospace;
   background-color: #000;
 }
+
+body {
+  scroll-behavior: smooth;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #1c3848;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  cursor: default;
+  background: #152b37;
+}

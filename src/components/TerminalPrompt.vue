@@ -16,28 +16,13 @@ const inputText = ref<string>('')
 const inputEl = useTemplateRef<HTMLInputElement>('cmdInput')
 const historyIndex = ref<number | null>(null)
 
-defineExpose({ inputEl })
+defineExpose({ inputEl, simulate })
 
 onMounted(() => {
   if (props.cmdEntry) {
     inputText.value = getPastInputStr(props.cmdEntry)
   } else if (props.simInput) {
-    let i = 0
-
-    const addChar = (cmd: string) => {
-      if (!cmd || i >= cmd.length) {
-        submit()
-        return
-      }
-      inputText.value += cmd.charAt(i)
-      i++
-
-      setTimeout(() => {
-        addChar(cmd)
-      }, 50)
-    }
-    addChar(props.simInput)
-    inputEl.value?.focus()
+    simulate(props.simInput)
   }
 })
 
@@ -49,6 +34,26 @@ watch(
     Shells[props.tab].input = ''
   }
 )
+
+function simulate(input: string) {
+  let i = 0
+  inputText.value = ''
+
+  const addChar = (cmd: string) => {
+    if (!cmd || i >= cmd.length) {
+      submit()
+      return
+    }
+    inputText.value += cmd.charAt(i)
+    i++
+
+    setTimeout(() => {
+      addChar(cmd)
+    }, 50)
+  }
+  addChar(input)
+  inputEl.value?.focus()
+}
 
 function submit() {
   Shells[props.tab].submission = inputText.value
