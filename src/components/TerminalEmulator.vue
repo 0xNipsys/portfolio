@@ -107,17 +107,17 @@ function exitFullscreen() {
         />
       </div>
 
-      <div class="flex text-steelblue">
+      <div v-if="tab === Tab.MainTab" class="flex text-steelblue">
         <button
           ref="fsKeyListener"
-          class="opacity-0"
+          class="opacity-0 fixed"
           @keydown.exact="lastKeyDown = $event"
           @keydown.ctrl.c.exact="exitFullscreen"
           autofocus
           onblur="this.focus()"
         />
 
-        <div v-if="tab === Tab.MainTab" class="flex-auto text-right text-sm">
+        <div class="flex-auto text-right text-sm">
           {{ i18n.fullScreenMode }} /
           <button class="font-bold text-darkgoldenrod cursor-pointer" @click="exitFullscreen">
             [{{ i18n.exit }}]
