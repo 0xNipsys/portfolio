@@ -177,8 +177,8 @@ const tableColumns = computed<TableColumn[]>(() => [
           </div>
         </div>
       </div>
-      <div class="basis-2/3">
-        <div>
+      <div class="basis-2/3 flex flex-col">
+        <div class="basis-2/5">
           <div class="border-y border-darkslategray">
             <div class="bg-darkslategray px-2 py-1 w-fit">
               {{ i18n.experience.accomplishments }}
@@ -212,7 +212,7 @@ const tableColumns = computed<TableColumn[]>(() => [
             </div>
           </div>
         </div>
-        <div>
+        <div class="basis-3/5">
           <div class="border-y border-darkslategray">
             <div class="bg-darkslategray px-2 py-1 w-fit">
               {{ i18n.experience.developmentStack }}

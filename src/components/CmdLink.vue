@@ -1,10 +1,6 @@
 <script setup lang="ts">
-import {
-  type CommandArgument,
-  type CommandInfo,
-  ShellInput,
-  ShellSubmission
-} from '@/shell/commands'
+import { type CommandArgument, type CommandInfo } from '@/shell/commands'
+import { Shells } from '@/shell/shell'
 
 const props = defineProps<{
   cmdName?: string
@@ -15,18 +11,18 @@ const props = defineProps<{
 function submitCmd(): void {
   const cmd = props.cmdName ?? props.cmdInfo?.name ?? ''
   if (!cmd) return
-  ShellInput.value = ''
+  Shells.MainTab.input = ''
 
   if (props.cmdInfo?.options?.length) {
-    ShellInput.value = `${cmd} `
+    Shells.MainTab.input = `${cmd} `
     return
   }
   if (props.arg) {
-    ShellInput.value = `${cmd} --${props.arg.name}=`
+    Shells.MainTab.input = `${cmd} --${props.arg.name}=`
     return
   }
 
-  ShellSubmission.value = cmd
+  Shells.MainTab.input = cmd
 }
 </script>
 

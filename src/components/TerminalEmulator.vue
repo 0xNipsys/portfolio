@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import TerminalPrompt from '@/components/TerminalPrompt.vue'
-import { ref, useTemplateRef, watch } from 'vue'
-import { Command, type CommandEntry, ShellFullscreenCmd, ShellSubmission } from '@/shell/commands'
+import { computed, onMounted, ref, useTemplateRef, watch } from 'vue'
+import { Command, type CommandEntry } from '@/shell/commands'
 import IntroOutput from '@/components/IntroOutput.vue'
 import UnknownCmdOutput from '@/components/UnknownCmdOutput.vue'
 import HelpOutput from '@/components/HelpOutput.vue'
@@ -9,6 +9,12 @@ import SetLangOutput from '@/components/SetLangOutput.vue'
 import parseEntry from '@/shell/entry-parsing'
 import ExperienceOutput from '@/components/ExperienceOutput.vue'
 import { i18n } from '@/content/i18n'
+import { InitialTabCmd, Tab } from '@/enums/tab'
+import { Shells } from '@/shell/shell'
+
+const props = defineProps<{
+  tab: Tab
+}>()
 
 const cmdEntries = ref<CommandEntry[]>([])
 const initialSubmit = ref(false)
@@ -16,35 +22,49 @@ const mainPrompt = useTemplateRef<typeof TerminalPrompt>('mainPrompt')
 const fsKeyListener = useTemplateRef<HTMLButtonElement>('fsKeyListener')
 const lastKeyDown = ref<KeyboardEvent | null>(null)
 
-watch(ShellSubmission, (submission) => {
-  if (!submission) return
-  ShellSubmission.value = ''
-  initialSubmit.value = true
+const fullScreenCmd = computed(() => Shells[props.tab].fullscreenCmd)
 
-  if (submission === 'clear') {
-    cmdEntries.value = []
-    return
-  }
-
-  const cmdEntry = parseEntry(submission)
-  cmdEntries.value.push(cmdEntry)
-
-  if (cmdEntry.fullscreen) {
-    ShellFullscreenCmd.value = cmdEntry.cmdName
-  }
-
-  setTimeout(() => {
-    mainPrompt.value?.inputEl.scrollIntoView({ behavior: 'smooth' })
-  }, 100)
-})
-
-watch(ShellFullscreenCmd, () => {
-  if (ShellFullscreenCmd.value) {
-    setTimeout(focusKeyListener, 200)
-  } else {
-    setTimeout(focusPrompt, 200)
+onMounted(() => {
+  if (props.tab !== Tab.MainTab) {
+    Shells[props.tab] = {}
   }
 })
+
+watch(
+  () => Shells[props.tab].submission,
+  (submission) => {
+    if (!submission) return
+    Shells[props.tab].submission = ''
+    initialSubmit.value = true
+
+    if (submission === 'clear') {
+      cmdEntries.value = []
+      return
+    }
+
+    const cmdEntry = parseEntry(submission)
+    cmdEntries.value.push(cmdEntry)
+
+    if (cmdEntry.fullscreen) {
+      Shells[props.tab].fullscreenCmd = cmdEntry.cmdName
+    }
+
+    setTimeout(() => {
+      mainPrompt.value?.inputEl.scrollIntoView({ behavior: 'smooth' })
+    }, 100)
+  }
+)
+
+watch(
+  () => Shells[props.tab].fullscreenCmd,
+  () => {
+    if (Shells[props.tab].fullscreenCmd) {
+      setTimeout(focusKeyListener, 200)
+    } else {
+      setTimeout(focusPrompt, 200)
+    }
+  }
+)
 
 function focusKeyListener() {
   fsKeyListener.value?.focus()
@@ -55,32 +75,35 @@ function focusPrompt() {
 }
 
 function exitFullscreen() {
-  ShellFullscreenCmd.value = null
+  if (props.tab !== Tab.MainTab) return
+  Shells[props.tab].fullscreenCmd = undefined
 }
 </script>
 
 <template>
-  <div
-    class="flex-auto p-5 bg-darkerslategray rounded-tr-md rounded-b-md overflow-y-scroll select-none"
-  >
-    <div v-if="!ShellFullscreenCmd" class="size-full flex flex-col" @click="focusPrompt">
-      <TerminalPrompt v-if="!cmdEntries.length && !initialSubmit" :simInput="Command.Intro" />
+  <div class="bg-darkerslategray w-full h-full overflow-y-scroll select-none">
+    <div v-if="!fullScreenCmd" class="size-full flex flex-col" @click="focusPrompt">
+      <TerminalPrompt
+        v-if="!cmdEntries.length && !initialSubmit"
+        :tab="tab"
+        :simInput="InitialTabCmd[tab]"
+      />
 
       <template v-else>
         <template v-for="entry in cmdEntries" :key="entry.timestamp">
-          <TerminalPrompt :cmdEntry="entry" />
+          <TerminalPrompt :tab="tab" :cmdEntry="entry" />
           <SetLangOutput v-if="entry.cmdName === Command.SetLang" :entry="entry" />
           <IntroOutput v-else-if="entry.cmdName === Command.Intro" />
           <HelpOutput v-else-if="entry.cmdName === Command.Help" />
           <UnknownCmdOutput v-else-if="!entry.fullscreen" :command="entry.cmdName" />
         </template>
-        <TerminalPrompt ref="mainPrompt" :entries="cmdEntries" />
+        <TerminalPrompt ref="mainPrompt" :tab="tab" :entries="cmdEntries" />
       </template>
     </div>
     <div v-else class="size-full flex flex-col gap-3" @click="focusKeyListener">
       <div class="flex-auto">
         <ExperienceOutput
-          v-if="ShellFullscreenCmd === Command.Experience"
+          v-if="fullScreenCmd === Command.Experience"
           :last-key-down="lastKeyDown"
         />
       </div>
@@ -95,7 +118,7 @@ function exitFullscreen() {
           onblur="this.focus()"
         />
 
-        <div class="flex-auto text-right text-sm">
+        <div v-if="tab === Tab.MainTab" class="flex-auto text-right text-sm">
           {{ i18n.fullScreenMode }} /
           <button class="font-bold text-darkgoldenrod cursor-pointer" @click="exitFullscreen">
             [{{ i18n.exit }}]

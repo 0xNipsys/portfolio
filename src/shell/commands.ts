@@ -1,9 +1,4 @@
-import { ref } from 'vue'
 import { Lang } from '@/enums/lang'
-
-export const ShellInput = ref('')
-export const ShellSubmission = ref('')
-export const ShellFullscreenCmd = ref<Command | null>(null)
 
 export interface CommandInfo {
   name: Command
@@ -51,12 +46,6 @@ export const Commands: CommandInfo[] = [
     name: Command.Experience,
     fullscreen: true
   },
-  /*{
-    name: Command.ProProjects
-  },
-  {
-    name: Command.PersoProjects
-  },*/
   {
     name: Command.SetLang,
     options: enumToArg(Lang)

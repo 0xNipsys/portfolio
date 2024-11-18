@@ -28,7 +28,7 @@ onMounted(() => {
       </a>
     </div>
 
-    <div class="flex flex-col max-w-screen-2xl aspect-video overflow-hidden mx-auto">
+    <div class="flex flex-col max-w-screen-2xl aspect-video overflow-hidden mx-auto relative">
       <div class="basis-9 flex flex-shrink-0">
         <div class="flex-auto flex gap-1">
           <ContentTab
@@ -55,7 +55,13 @@ onMounted(() => {
         </div>
       </div>
 
-      <Terminal />
+      <div class="bg-darkerslategray flex-auto rounded-tr-md rounded-b-md overflow-hidden relative">
+        <template v-for="tab in Tab" :key="tab">
+          <div v-if="currentTab === tab" class="absolute top-0 left-0 size-full p-5">
+            <Terminal :tab="tab" />
+          </div>
+        </template>
+      </div>
     </div>
   </div>
 </template>

@@ -1,9 +1,12 @@
 <script setup lang="ts">
 import { onMounted, ref, useTemplateRef, watch } from 'vue'
 import { i18n } from '@/content/i18n'
-import { type CommandEntry, ShellInput, ShellSubmission } from '@/shell/commands'
+import { type CommandEntry } from '@/shell/commands'
+import type { Tab } from '@/enums/tab'
+import { Shells } from '@/shell/shell'
 
 const props = defineProps<{
+  tab: Tab
   entries?: CommandEntry[]
   cmdEntry?: CommandEntry
   simInput?: string
@@ -31,21 +34,24 @@ onMounted(() => {
 
       setTimeout(() => {
         addChar(cmd)
-      }, 150)
+      }, 50)
     }
     addChar(props.simInput)
     inputEl.value?.focus()
   }
 })
 
-watch(ShellInput, (input) => {
-  if (props.cmdEntry || props.simInput || !input) return
-  inputText.value = input
-  ShellInput.value = ''
-})
+watch(
+  () => Shells[props.tab].input,
+  (input) => {
+    if (props.cmdEntry || props.simInput || !input) return
+    inputText.value = input
+    Shells[props.tab].input = ''
+  }
+)
 
 function submit() {
-  ShellSubmission.value = inputText.value
+  Shells[props.tab].submission = inputText.value
   inputText.value = ''
 }
 
