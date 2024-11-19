@@ -100,7 +100,7 @@ function exitFullscreen() {
       <TerminalPrompt ref="mainPrompt" :tab="tab" :entries="Shells[props.tab].history" />
     </div>
     <div v-else class="size-full flex flex-col gap-3" @click="focusKeyListener">
-      <div class="flex-auto">
+      <div class="flex-auto overflow-hidden">
         <ExperienceOutput
           v-if="fullScreenCmd === Command.Experience"
           :last-key-down="lastKeyDown"

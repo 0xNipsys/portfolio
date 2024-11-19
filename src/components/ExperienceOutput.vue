@@ -119,14 +119,14 @@ const tableColumns = computed<TableColumn[]>(() => [
       </div>
     </div>
 
-    <div class="flex-auto">
+    <div class="flex-auto flex flex-col overflow-hidden">
       <div class="border-b border-darkslategray">
         <div class="bg-darkslategray px-2 py-1 w-fit">
           {{ i18n.experience.positionDescription }}
         </div>
       </div>
-      <div class="px-5 py-3">
-        <p>
+      <div class="flex-auto px-5 py-3 overflow-hidden">
+        <p class="overflow-y-auto max-h-full">
           {{ selectedPosInfo?.description }}
         </p>
       </div>
