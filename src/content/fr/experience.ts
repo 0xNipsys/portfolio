@@ -13,7 +13,7 @@ export default {
   positionDescription: 'description du poste',
   companyInfo: "informations sur l'entreprise",
   accomplishments: 'réalisations',
-  developmentStack: 'stack de développement',
+  developmentStack: 'stack de développement utilisée',
   sector: 'secteur',
   size: 'taille',
   location: 'localisation',

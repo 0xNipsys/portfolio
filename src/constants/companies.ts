@@ -33,7 +33,7 @@ export const Companies: Record<Company, CompanyInfo> = {
   },
   [Company.RenaultDigital]: {
     logo: renaultDigitalLogo,
-    logoWrapColor: '#fff',
+    logoWrapColor: '#000',
     location: 'Boulogne-Billancourt, Hauts-de-Seine',
     country: 'France',
     size: CompanySize.MD,

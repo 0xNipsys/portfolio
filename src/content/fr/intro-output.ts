@@ -1,5 +1,5 @@
 export default {
-  welcome: 'Bienvenue dans mon portfolio au look de terminal!',
+  welcome: 'Bienvenue sur mon portfolio au look de terminal!',
   iam: 'Je suis',
   workTitle: ", un développeur senior d'applications Web.",
   tabBrowsing:

@@ -3,11 +3,17 @@ import type { I18nPosition } from '@/content/interfaces'
 export default {
   1: {
     description:
-      'End-of-school-year internship - My 1st professional Web Dev experience. My main mission was to ' +
-      'participate in the improvement of their real estate data aggregator, which is divided into two ' +
-      'micro-services: the first in charge of browsing the ads of French real estate portals in order to retrieve ' +
-      'the HTML code. The second was to clean and format the metadata extracted from the HTML code of the real ' +
-      'estate ad pages.',
+      'End of school year internship - My first professional experience in web development. I ' +
+      "was introduced to Yanport's real estate data analysis tools. During these two months, my " +
+      'contributions were rather modest and mostly consisted of writing additional unit tests ' +
+      'and correcting/preventing breakdowns that could occur when aggregating or processing new ' +
+      'data. The data came from French real estate portals such as LeBonCoin and SeLoger. The ' +
+      'process was split between two microservices. The objective of the first service was to ' +
+      'browse these portals at regular intervals to retrieve the HTML code of the ads, as well ' +
+      'as the code of the ads themselves. The aim of the second service was to extract the ' +
+      'various metadata from the HTML code, map them to the Yanport data format and then match ' +
+      'each piece of information to a property, whether already in the database or yet to be ' +
+      'created.',
     beAccomplishments: [
       'Investigate and fix web crawling issues',
       'Improve html metadata extractor by supporting old and new data structures'
