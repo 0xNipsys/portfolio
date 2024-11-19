@@ -3,7 +3,7 @@ import type { I18nPosition } from '@/content/interfaces'
 export default {
   1: {
     description:
-      'End of school year internship - My first professional experience in web development. I ' +
+      'My first professional experience in web development. I ' +
       "was introduced to Yanport's real estate data analysis tools. During these two months, my " +
       'contributions were rather modest and mostly consisted of writing additional unit tests ' +
       'and correcting/preventing breakdowns that could occur when aggregating or processing new ' +

@@ -49,33 +49,18 @@ export default {
   },
   companyIntroductions: {
     [Company.Yanport]:
-      'As a leader in the real estate data market, Yanport supports residential ' +
-      'real estate professionals on a daily basis with its valuation, decision support and real ' +
-      'estate analysis solutions.',
-    [Company.Onepoint]:
-      'For more than 20 years, Onepoint has been helping companies and public ' +
-      'sector bodies achieve major transformations. We are convinced that economic growth and ' +
-      "social progress are inseparable. That's why we put technological innovation at the service " +
-      'of our customers and society as a whole. Our ambition is to work together to build a ' +
-      'sustainable future that benefits everyone.',
+      'Yanport supports residential real estate professionals on a daily basis with its ' +
+      'valuation, decision support and real estate analysis solutions.',
+    [Company.Onepoint]: '',
     [Company.RenaultDigital]:
-      "The aim of Renault Digital is to digitize Renault's core " +
-      'business for its employees, partners and customers worldwide. Innovation is part of ' +
-      "Renault's DNA. We are working to build the digital capabilities and scale of tomorrow.",
-    [Company.Talan]:
-      'Talan is an international consulting and technology expertise group that ' +
-      'accelerates the transformation of its customers through the levers of innovation, ' +
-      'technology and data. For over 20 years, Talan has been advising and supporting companies ' +
-      'and public institutions in the implementation of their transformation and innovation ' +
-      'projects in France and abroad.',
+      "Renault Digital digitizes Renault's core business for its employees, partners and " +
+      'customers worldwide.',
+    [Company.Talan]: '',
     [Company.Bell]:
-      "Bell is Canada's largest communications company. It provides an advanced " +
-      'suite of wireless, Internet, television, media and broadband business communications ' +
-      'services from Bell. Founded in Montreal in 1880, Bell is wholly owned by BCE Inc.',
+      "Bell is Canada's largest communications company. Providing an advanced suite of wireless, " +
+      'Internet, television, media and broadband business communications services.',
     [Company.Chainify]:
-      'Chainify is a technology company that aims to bridge the gap between ' +
-      'traditional gaming and blockchain technology. Our flagship game, DEEPSPACE, serves as a ' +
-      'pilot for building our infrastructure, providing an easy way for game studios to enter the ' +
-      'world of blockchain gaming with our plug-and-play solution.'
+      'Chainify is a technology company that aims to bridge the gap between traditional gaming ' +
+      'and blockchain technology.'
   }
 } satisfies I18nExperience

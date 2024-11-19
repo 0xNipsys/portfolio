@@ -3,7 +3,7 @@ import type { I18nPosition } from '@/content/interfaces'
 export default {
   1: {
     description:
-      "Stage de fin d'année scolaire - Ma première expérience professionnelle en développement " +
+      'Ma première expérience professionnelle en développement ' +
       "web. J'ai été initié aux outils d'analyse de données immobilières de Yanport. Pendant " +
       'ces deux mois, mes contributions ont été plutôt modestes et ont surtout consisté à écrire ' +
       'des tests unitaires supplémentaires et à corriger/prévenir les pannes qui pouvaient ' +
@@ -12,9 +12,9 @@ export default {
       "était partagé entre deux microservices. L'objectif du premier service consistait à " +
       'parcourir ces portails à intervalles réguliers afin de récupérer le code HTML des ' +
       'annonces ainsi que le code des annonces elles-mêmes. Le second service visait à extraire ' +
-      'les différentes métadonnées du code HTML, à les mettre en correspondance avec le format ' +
-      'de données Yanport avant de faire correspondre chaque information avec une propriété, ' +
-      "qu'elle soit déjà dans la base de données ou qu'elle doive être créée. ",
+      'les différentes métadonnées du code HTML, puis à les mettre en correspondance avec le ' +
+      'format de données Yanport avant de faire correspondre chaque information avec une ' +
+      "propriété, qu'elle soit déjà dans la base de données ou qu'elle doive être créée. ",
     beAccomplishments: [
       'Examiner et résoudre les problèmes liés au web crawling',
       "Améliorer l'extracteur de métadonnées html en prenant en charge les anciennes et les " +

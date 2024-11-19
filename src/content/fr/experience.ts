@@ -49,36 +49,19 @@ export default {
   },
   companyIntroductions: {
     [Company.Yanport]:
-      'Leader sur le marché des données immobilières, Yanport accompagne au ' +
-      "quotidien les professionnels de l'immobilier résidentiel grâce à ses solutions " +
-      "d'évaluation, d'aide à la décision et d'analyse immobilière.",
-    [Company.Onepoint]:
-      'Depuis plus de 20 ans, Onepoint aide les entreprises et les organismes ' +
-      'du secteur public à réaliser des transformations majeures. Nous sommes convaincus que la ' +
-      "croissance économique et le progrès social sont indissociables. C'est pourquoi nous " +
-      "mettons l'innovation technologique au service de nos clients et de la société dans son " +
-      "ensemble. Notre ambition est de travailler ensemble à la construction d'un avenir durable " +
-      'qui profite à tous.',
+      "Yanport accompagne au quotidien les professionnels de l'immobilier résidentiel grâce à ses " +
+      "solutions d'évaluation, d'aide à la décision et d'analyse immobilière.",
+    [Company.Onepoint]: '',
     [Company.RenaultDigital]:
-      "L'objectif de Renault Digital est de numériser le cœur de métier " +
-      'de Renault pour ses employés, ses partenaires et ses clients dans le monde entier. ' +
-      "L'innovation fait partie de l'ADN de Renault. Nous travaillons à construire les " +
-      "capacités numériques et l'échelle de demain.",
-    [Company.Talan]:
-      'Talan est un groupe international de conseil et d’expertises ' +
-      'technologiques qui accélère la transformation de ses clients par les leviers de ' +
-      "l'innovation, la technologie et la data. Depuis plus de 20 ans, Talan conseille et " +
-      'accompagne les entreprises et les institutions publiques dans la mise en œuvre de leurs ' +
-      "projets de transformation et d'innovation en France et à l'international.",
+      'Renault Digital numérise le cœur de métier de Renault pour ses employés, ses partenaires ' +
+      'et ses clients dans le monde entier.',
+    [Company.Talan]: '',
     [Company.Bell]:
-      'Bell est la plus grande entreprise de communications du Canada. Elle ' +
-      'fournit un ensemble évolué de services sans fil, Internet, de télévision, de médias et de ' +
-      "communications d'affaires large bande de Bell. Fondée à Montréal en 1880, Bell est la " +
-      'propriété exclusive de BCE Inc.',
+      'Bell est la plus grande entreprise de communications du Canada. Fournissant des ' +
+      "services avancés sans fil, Internet, télévision, médias et communications d'affaires " +
+      'large bande.',
     [Company.Chainify]:
       'Chainify est une entreprise technologique qui vise à combler le fossé ' +
-      'entre les jeux traditionnels et la technologie blockchain. Notre jeu phare, DEEPSPACE, ' +
-      'sert de pilote pour la construction de notre infrastructure, offrant aux studios de jeu un ' +
-      "moyen facile d'entrer dans le monde du jeu blockchain grâce à notre solution plug-and-play."
+      'entre les jeux traditionnels et la technologie blockchain.'
   }
 } satisfies I18nExperience
