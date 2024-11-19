@@ -22,7 +22,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="font-mono text-xs leading-none whitespace-break-spaces">
+  <div class="hidden md:block font-mono text-xs leading-none whitespace-break-spaces">
     {{ figletText }}
   </div>
 
@@ -40,8 +40,3 @@ onMounted(() => {
     >.
   </p>
 </template>
-
-<style scoped lang="scss">
-p {
-}
-</style>
