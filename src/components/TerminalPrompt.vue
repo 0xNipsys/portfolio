@@ -108,8 +108,8 @@ function getPastInputStr(entry: CommandEntry) {
 </script>
 
 <template>
-  <div class="flex w-full">
-    <div class="mr-2 font-bold">
+  <div class="flex w-full gap-x-2">
+    <div class="font-bold">
       <span class="text-steelblue">{{ i18n.cmdLinePrefix }}</span
       >:<span class="text-steelblue">~</span>$
     </div>

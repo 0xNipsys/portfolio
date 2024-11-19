@@ -26,9 +26,9 @@ watch(currentTab, () => {
 <template>
   <div class="w-screen h-screen bg-darkslategray/70 flex flex-col justify-center relative">
     <div
-      class="flex items-center justify-between h-10 px-5 text-darkgray/60 tracking-tighter absolute w-full top-0 transition-colors"
+      class="flex items-center justify-between h-10 px-2 sm:px-5 text-darkgray/60 tracking-tighter absolute w-full top-0 transition-colors"
     >
-      <div class="flex gap-x-2 text-sm">
+      <div class="flex gap-x-2 text-xs sm:text-sm">
         <span
           v-for="lang in Lang"
           :key="lang"
@@ -39,12 +39,16 @@ watch(currentTab, () => {
         >
       </div>
 
-      <a class="hover:text-darkgray flex items-center" :href="RepoUrl" target="_blank">
-        <v-icon name="bi-github" scale="1.2" />&nbsp;source code
+      <a
+        class="hover:text-darkgray flex items-center text-xs sm:text-sm"
+        :href="RepoUrl"
+        target="_blank"
+      >
+        <v-icon name="bi-github" />&nbsp;source code
       </a>
     </div>
 
-    <div class="flex-auto flex items-center justify-center p-10">
+    <div class="flex-auto flex items-center justify-center pt-10 px-2 pb-2 sm:px-5 sm:pb-5 lg:p-14">
       <div class="flex flex-col size-full max-w-[1280px] max-h-[860px] overflow-hidden relative">
         <div class="basis-9 flex flex-shrink-0">
           <div class="flex-auto flex gap-1">
