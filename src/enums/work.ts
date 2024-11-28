@@ -57,6 +57,7 @@ export enum Stack {
   Java = 'Java',
   Javascript = 'Javascript',
   Jsoup = 'Jsoup',
+  NextJS = 'Next.js',
   PWA = 'PWA',
   RabbitMq = 'RabbitMq',
   React = 'React',

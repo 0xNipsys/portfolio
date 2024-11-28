@@ -97,6 +97,7 @@ export const positions: Position[] = [
       Stack.CSSFlexbox,
       Stack.CSSGrid,
       Stack.DaisyUI,
+      Stack.NextJS,
       Stack.React,
       Stack.Responsive,
       Stack.SCSS,
