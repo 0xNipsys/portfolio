@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import TermTable, { type TableColumn } from '@/components/TermTable.vue'
+import DataTable, { type TableColumn } from '@/components/common/DataTable.vue'
 import { type Position, positions } from '@/constants/positions'
 import { stackWeight } from '@/constants/stack-weights'
 import { formatWorkPeriod } from '@/utils/position-formatting'
@@ -84,7 +84,7 @@ const tableColumns = computed<TableColumn[]>(() => [
 </script>
 
 <template>
-  <TermTable
+  <DataTable
     v-if="!selectedPosition"
     ref-field="id"
     :columns="tableColumns"

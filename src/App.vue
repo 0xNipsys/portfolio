@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import ContentTab from '@/components/ContentTab.vue'
 import { onMounted, ref, watch } from 'vue'
 import { CurrentLang } from '@/content/i18n'
-import Terminal from '@/components/TerminalEmulator.vue'
+import Terminal from '@/components/core/TerminalEmulator.vue'
 import { Lang, LangLabels } from '@/enums/lang'
 import { Tab } from '@/enums/tab'
 import { RepoUrl } from '@/constants/base'
 import { Shells } from '@/shell/shell'
+import TabToggle from '@/components/common/TabToggle.vue'
 
 const currentTab = ref(Tab.MainTab)
 
@@ -52,7 +52,7 @@ watch(currentTab, () => {
       <div class="flex flex-col size-full max-w-[1280px] max-h-[860px] overflow-hidden relative">
         <div class="basis-9 flex flex-shrink-0">
           <div class="flex-auto flex gap-1">
-            <ContentTab
+            <TabToggle
               v-for="tab in Tab"
               :key="tab"
               :tab="tab"

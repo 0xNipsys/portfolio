@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import TerminalPrompt from '@/components/TerminalPrompt.vue'
+import TerminalPrompt from '@/components/core/TerminalPrompt.vue'
 import { computed, onMounted, ref, useTemplateRef, watch } from 'vue'
 import { Command } from '@/shell/commands'
 import IntroOutput from '@/components/cmd-ouputs/IntroOutput.vue'
@@ -19,14 +19,18 @@ const props = defineProps<{
 const mainPrompt = useTemplateRef<typeof TerminalPrompt>('mainPrompt')
 const fsKeyListener = useTemplateRef<HTMLButtonElement>('fsKeyListener')
 const lastKeyDown = ref<KeyboardEvent | null>(null)
+const ready = ref(false)
 
 const fullScreenCmd = computed(() => Shells[props.tab].fullscreenCmd)
 
 onMounted(() => {
-  focusPrompt()
-  if (!Shells[props.tab].history?.length) {
-    mainPrompt.value?.simulate(InitialTabCmd[props.tab])
-  }
+  setTimeout(() => {
+    focusPrompt()
+    ready.value = true
+    if (!Shells[props.tab].history?.length) {
+      mainPrompt.value?.simulate(InitialTabCmd[props.tab])
+    }
+  }, 50)
 })
 
 watch(
@@ -88,7 +92,10 @@ function exitFullscreen() {
 </script>
 
 <template>
-  <div class="bg-darkerslategray size-full overflow-y-scroll select-none">
+  <div
+    class="bg-darkerslategray size-full overflow-y-scroll select-none"
+    :class="{ 'opacity-0': !ready }"
+  >
     <div v-if="!fullScreenCmd" class="size-full flex flex-col" @click="focusPrompt">
       <template v-for="entry in Shells[props.tab].history" :key="entry.timestamp">
         <TerminalPrompt :tab="tab" :cmdEntry="entry" />

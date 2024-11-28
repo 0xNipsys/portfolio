@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { i18n } from '@/content/i18n'
-import CmdLink from '@/components/CmdLink.vue'
+import CmdLink from '@/components/common/CmdLink.vue'
 import { Commands } from '@/shell/commands'
 import { type I18nCmd } from '@/content/interfaces'
 </script>
