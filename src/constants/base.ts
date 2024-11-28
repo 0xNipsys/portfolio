@@ -1,2 +1,2 @@
 export const Name = 'Xavier Saliniere'
-export const RepoUrl = 'https://github.com/WildXav/portfolio'
+export const RepoUrl = 'https://github.com/0xNipsys/portfolio'
