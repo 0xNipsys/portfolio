@@ -132,7 +132,8 @@ function getPastInputStr(entry: CommandEntry) {
 <style lang="scss" scoped>
 input {
   all: unset;
-  flex: 1 0 auto;
+  flex: 1 1 auto;
+  width: inherit;
   opacity: 0.8;
 }
 </style>
