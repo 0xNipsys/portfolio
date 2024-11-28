@@ -2,12 +2,12 @@
 import TerminalPrompt from '@/components/TerminalPrompt.vue'
 import { computed, onMounted, ref, useTemplateRef, watch } from 'vue'
 import { Command } from '@/shell/commands'
-import IntroOutput from '@/components/IntroOutput.vue'
-import UnknownCmdOutput from '@/components/UnknownCmdOutput.vue'
-import HelpOutput from '@/components/HelpOutput.vue'
-import SetLangOutput from '@/components/SetLangOutput.vue'
+import IntroOutput from '@/components/cmd-ouputs/IntroOutput.vue'
+import UnknownCmdOutput from '@/components/cmd-ouputs/UnknownCmdOutput.vue'
+import HelpOutput from '@/components/cmd-ouputs/HelpOutput.vue'
+import SetLangOutput from '@/components/cmd-ouputs/SetLangOutput.vue'
 import parseEntry from '@/shell/entry-parsing'
-import ExperienceOutput from '@/components/ExperienceOutput.vue'
+import ExperienceOutput from '@/components/cmd-ouputs/ExperienceOutput.vue'
 import { i18n } from '@/content/i18n'
 import { InitialTabCmd, Tab } from '@/enums/tab'
 import { Shells } from '@/shell/shell'
@@ -88,7 +88,7 @@ function exitFullscreen() {
 </script>
 
 <template>
-  <div class="bg-darkerslategray w-full h-full overflow-y-scroll select-none">
+  <div class="bg-darkerslategray size-full overflow-y-scroll select-none">
     <div v-if="!fullScreenCmd" class="size-full flex flex-col" @click="focusPrompt">
       <template v-for="entry in Shells[props.tab].history" :key="entry.timestamp">
         <TerminalPrompt :tab="tab" :cmdEntry="entry" />
