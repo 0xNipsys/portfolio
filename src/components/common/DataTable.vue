@@ -84,51 +84,53 @@ const rows = computed(() => {
 </script>
 
 <template>
-  <div class="flex flex-col h-full">
-    <div :key="CurrentLang" class="table table-fixed w-full flex-shrink-0">
-      <div class="table-header-group">
-        <div class="table-row">
+  <div class="size-full overflow-y-auto">
+    <div class="flex flex-col h-full">
+      <div :key="CurrentLang" class="table table-fixed w-full flex-shrink-0">
+        <div class="table-header-group sticky top-0 z-10 bg-darkerslategray">
+          <div class="table-row">
+            <div
+              v-for="col in columns"
+              :key="col.field"
+              class="table-cell font-bold border border-darkslategray text-darkgray/80 px-2 py-1"
+              :style="{ width: col.width }"
+            >
+              {{ col.header.toUpperCase() }}
+            </div>
+          </div>
+        </div>
+        <div class="table-row-group">
           <div
-            v-for="col in columns"
-            :key="col.field"
-            class="table-cell font-bold border border-darkslategray text-darkgray/80 px-2 py-1"
-            :style="{ width: col.width }"
+            v-for="(row, i) in rows"
+            :key="row[refField]"
+            class="table-row text-olivedrab cursor-pointer even:text-lightseagreen"
+            :class="{ selected: i === selectedIdx }"
+            @mouseover="selectedIdx = i"
+            @click="selectEntry"
           >
-            {{ col.header.toUpperCase() }}
+            <div
+              v-for="col in columns"
+              :key="col.field"
+              class="table-cell border-x border-darkslategray px-2 py-0.5"
+              :style="{ width: col.width }"
+            >
+              {{ col.format ? col.format(row) : row[col.field] }}
+            </div>
           </div>
         </div>
       </div>
-      <div class="table-row-group">
-        <div
-          v-for="(row, i) in rows"
-          :key="row[refField]"
-          class="table-row text-olivedrab cursor-pointer even:text-lightseagreen"
-          :class="{ selected: i === selectedIdx }"
-          @mouseover="selectedIdx = i"
-          @click="selectEntry"
-        >
-          <div
-            v-for="col in columns"
-            :key="col.field"
-            class="table-cell border-x border-darkslategray px-2 py-0.5"
-            :style="{ width: col.width }"
-          >
-            {{ col.format ? col.format(row) : row[col.field] }}
-          </div>
-        </div>
-      </div>
-    </div>
 
-    <!--  Fake table to simulate first one going all the way down  -->
-    <div class="table table-fixed flex-auto">
-      <div class="table-row-group">
-        <div class="table-row">
-          <div
-            v-for="col in columns"
-            :key="col.field"
-            class="table-cell border border-t-0 border-darkslategray"
-            :style="{ width: col.width }"
-          />
+      <!--  Fake table to simulate first one going all the way down  -->
+      <div class="table table-fixed flex-auto">
+        <div class="table-row-group">
+          <div class="table-row">
+            <div
+              v-for="col in columns"
+              :key="col.field"
+              class="table-cell border border-t-0 border-darkslategray"
+              :style="{ width: col.width }"
+            />
+          </div>
         </div>
       </div>
     </div>
