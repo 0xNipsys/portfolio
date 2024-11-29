@@ -27,6 +27,7 @@ export const stackWeight: Record<Stack, number> = {
   [Stack.Java]: 5,
   [Stack.Javascript]: 5,
   [Stack.Jsoup]: 2,
+  [Stack.NextJS]: 6,
   [Stack.PWA]: 4,
   [Stack.RabbitMq]: 4,
   [Stack.React]: 6,

@@ -11,7 +11,7 @@ export interface I18nContent {
   na: string
   back: string
   backspace: string
-  ctrlC: string
+  escape: string
   or: string
   exit: string
   fullScreenMode: string

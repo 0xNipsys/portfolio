@@ -4,7 +4,7 @@ import figlet from 'figlet'
 import standard from 'figlet/importable-fonts/Standard.js'
 import { i18n } from '@/content/i18n'
 import { Command } from '@/shell/commands'
-import CmdLink from '@/components/common/CmdLink.vue'
+import CmdLink from '@/components/core/CmdLink.vue'
 import { Name } from '@/constants/base'
 
 const figletText = ref('')

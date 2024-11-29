@@ -11,7 +11,8 @@ export default {
       steelblue: '#378fd2',
       firebrick: '#d02c26',
       lightseagreen: '#2ca299',
-      darkgoldenrod: '#bd920a'
+      darkgoldenrod: '#bd920a',
+      darkslateblue: '#3a4e93'
     }
   },
   plugins: []

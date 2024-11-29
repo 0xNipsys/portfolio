@@ -123,7 +123,7 @@ function getPastInputStr(entry: CommandEntry) {
       @keydown.enter="submit"
       @keydown.up="usePreviousEntry"
       @keydown.down="useNextEntry"
-      @keydown.ctrl.c.exact="resetEntry"
+      @keydown.esc.exact="resetEntry"
       @beforeinput="historyIndex = null"
     />
   </div>

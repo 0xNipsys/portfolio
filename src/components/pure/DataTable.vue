@@ -2,6 +2,7 @@
 import { computed, ref, watch } from 'vue'
 import { CurrentLang } from '@/content/i18n'
 import dayjs from 'dayjs'
+import DataTableRow from '@/components/pure/DataTableRow.vue'
 
 export interface TableColumn {
   field: string
@@ -84,7 +85,7 @@ const rows = computed(() => {
 </script>
 
 <template>
-  <div class="size-full overflow-y-auto">
+  <div class="data-table size-full overflow-y-auto">
     <div class="flex flex-col h-full">
       <div :key="CurrentLang" class="table table-fixed w-full flex-shrink-0">
         <div class="table-header-group sticky top-0 z-10 bg-darkerslategray">
@@ -92,31 +93,25 @@ const rows = computed(() => {
             <div
               v-for="col in columns"
               :key="col.field"
-              class="table-cell font-bold border border-darkslategray text-darkgray/80 px-2 py-1"
+              class="table-cell border border-darkslategray px-1 py-1"
               :style="{ width: col.width }"
             >
-              {{ col.header.toUpperCase() }}
+              <div class="text-sm bg-darkslategray px-1">
+                {{ col.header }}
+              </div>
             </div>
           </div>
         </div>
         <div class="table-row-group">
-          <div
+          <DataTableRow
             v-for="(row, i) in rows"
             :key="row[refField]"
-            class="table-row text-olivedrab cursor-pointer even:text-lightseagreen"
-            :class="{ selected: i === selectedIdx }"
+            :data="row"
+            :columns="columns"
+            :selected="i === selectedIdx"
             @mouseover="selectedIdx = i"
             @click="selectEntry"
-          >
-            <div
-              v-for="col in columns"
-              :key="col.field"
-              class="table-cell border-x border-darkslategray px-2 py-0.5"
-              :style="{ width: col.width }"
-            >
-              {{ col.format ? col.format(row) : row[col.field] }}
-            </div>
-          </div>
+          />
         </div>
       </div>
 
@@ -137,29 +132,31 @@ const rows = computed(() => {
   </div>
 </template>
 
-<style lang="scss" scoped>
-.table-cell {
-  position: relative;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+<style lang="scss">
+.data-table {
+  .table-cell {
+    position: relative;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 
-  &:not(:first-child) {
-    border-left: none;
+    &:not(:first-child) {
+      border-left: none;
+    }
   }
-}
 
-.table-row-group {
-  .table-row {
-    &.selected .table-cell::before {
-      position: absolute;
-      content: '';
-      z-index: 0;
-      top: 5px;
-      right: 5px;
-      left: 5px;
-      bottom: 5px;
-      background-color: rgba(55, 143, 210, 0.5);
+  .table-row-group {
+    .table-row {
+      &.selected .table-cell::before {
+        position: absolute;
+        content: '';
+        z-index: 0;
+        top: 5px;
+        right: 5px;
+        left: 5px;
+        bottom: 5px;
+        background-color: rgba(55, 143, 210, 0.5);
+      }
     }
   }
 }

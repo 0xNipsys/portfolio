@@ -7,18 +7,20 @@ export interface Position {
   role: PositionRole
   isLeadRole: boolean
   type: PositionType
+  mainStack: Stack
   feStack: Stack[]
   beStack: Stack[]
   period: [Date, Date?]
 }
 
-export const positions: Position[] = [
+export const Positions: Position[] = [
   {
     id: 1,
     company: Company.Yanport,
     role: PositionRole.Backend,
     isLeadRole: false,
     type: PositionType.Internship,
+    mainStack: Stack.Java,
     feStack: [],
     beStack: [Stack.Java, Stack.Jsoup],
     period: [new Date(2016, 0), new Date(2016, 2)]
@@ -29,6 +31,7 @@ export const positions: Position[] = [
     role: PositionRole.FullStack,
     isLeadRole: false,
     type: PositionType.WorkStudy,
+    mainStack: Stack.AngularJS,
     feStack: [Stack.AngularJS, Stack.Bootstrap, Stack.Javascript],
     beStack: [
       Stack.Cassandra,
@@ -46,6 +49,7 @@ export const positions: Position[] = [
     role: PositionRole.FullStack,
     isLeadRole: false,
     type: PositionType.FullTime,
+    mainStack: Stack.Angular,
     feStack: [
       Stack.Angular,
       Stack.AngularJS,
@@ -76,6 +80,7 @@ export const positions: Position[] = [
     role: PositionRole.Frontend,
     isLeadRole: true,
     type: PositionType.FullTime,
+    mainStack: Stack.Angular,
     feStack: [
       Stack.Angular,
       Stack.AngularMaterial,
@@ -93,6 +98,7 @@ export const positions: Position[] = [
     role: PositionRole.FullStack,
     isLeadRole: false,
     type: PositionType.PartTime,
+    mainStack: Stack.Blockchain,
     feStack: [
       Stack.CSSFlexbox,
       Stack.CSSGrid,
@@ -114,6 +120,7 @@ export const positions: Position[] = [
     role: PositionRole.Frontend,
     isLeadRole: true,
     type: PositionType.FullTime,
+    mainStack: Stack.Vue3,
     feStack: [
       Stack.CSSFlexbox,
       Stack.CSSGrid,

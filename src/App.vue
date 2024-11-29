@@ -6,7 +6,7 @@ import { Lang, LangLabels } from '@/enums/lang'
 import { Tab } from '@/enums/tab'
 import { RepoUrl } from '@/constants/base'
 import { Shells } from '@/shell/shell'
-import TabToggle from '@/components/common/TabToggle.vue'
+import TabToggle from '@/components/pure/TabToggle.vue'
 
 const currentTab = ref(Tab.MainTab)
 
@@ -24,7 +24,7 @@ watch(currentTab, () => {
 </script>
 
 <template>
-  <div class="w-screen h-screen bg-darkslategray/70 flex flex-col justify-center relative">
+  <div class="w-screen h-screen bg-darkslateblue flex flex-col justify-center relative">
     <div
       class="flex items-center justify-between h-10 px-2 sm:px-5 text-darkgray/60 tracking-tighter absolute w-full top-0 transition-colors"
     >

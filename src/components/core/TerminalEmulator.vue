@@ -93,8 +93,8 @@ function exitFullscreen() {
 
 <template>
   <div
-    class="bg-darkerslategray size-full overflow-y-scroll select-none"
-    :class="{ invisible: !ready }"
+    class="bg-darkerslategray size-full overflow-y-scroll select-none text-sm sm:text-base"
+    :class="{ 'opacity-0': !ready }"
   >
     <div v-if="!fullScreenCmd" class="size-full flex flex-col" @click="focusPrompt">
       <template v-for="entry in Shells[props.tab].history" :key="entry.timestamp">
@@ -114,22 +114,25 @@ function exitFullscreen() {
         />
       </div>
 
-      <div v-if="tab === Tab.MainTab" class="flex text-steelblue">
-        <button
-          ref="fsKeyListener"
-          class="invisible fixed"
-          @keydown.exact="lastKeyDown = $event"
-          @keydown.ctrl.c.exact="exitFullscreen"
-          autofocus
-          onblur="this.focus()"
-        />
+      <button
+        ref="fsKeyListener"
+        class="opacity-0 fixed bottom-0"
+        @keydown.exact="lastKeyDown = $event"
+        @keydown.esc.exact="exitFullscreen"
+        autofocus
+        onblur="this.focus()"
+      />
 
-        <div class="flex-auto text-right text-sm">
-          {{ i18n.fullScreenMode }} /
-          <button class="font-bold text-darkgoldenrod cursor-pointer" @click="exitFullscreen">
+      <div v-if="tab === Tab.MainTab" class="flex text-steelblue">
+        <div class="flex-auto flex items-center justify-end text-sm">
+          {{ i18n.fullScreenMode }} /&nbsp;
+          <button
+            class="font-bold text-darkgoldenrod cursor-pointer text-base"
+            @click="exitFullscreen"
+          >
             [{{ i18n.exit }}]
           </button>
-          {{ i18n.or }} &lt;{{ i18n.ctrlC }}&gt;
+          &nbsp;{{ i18n.or }} &lt;{{ i18n.escape }}&gt;
         </div>
       </div>
     </div>

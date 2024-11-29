@@ -1,11 +1,13 @@
 <script setup lang="ts">
-import DataTable, { type TableColumn } from '@/components/common/DataTable.vue'
-import { type Position, positions } from '@/constants/positions'
-import { stackWeight } from '@/constants/stack-weights'
-import { formatWorkPeriod } from '@/utils/position-formatting'
+import DataTable, { type TableColumn } from '@/components/pure/DataTable.vue'
+import { type Position, Positions } from '@/constants/positions'
+import { formatStack, formatWorkPeriod } from '@/utils/position-formatting'
 import { computed, ref, watch } from 'vue'
 import { i18n } from '@/content/i18n'
 import { Companies } from '@/constants/companies'
+import CardList, { type CardListGroup } from '@/components/pure/CardList.vue'
+import { PositionType } from '@/enums/work'
+import PositionCard from '@/components/pure/PositionCard.vue'
 
 const props = defineProps<{
   lastKeyDown: KeyboardEvent | null
@@ -18,6 +20,7 @@ const selectedPosCompany = computed(() =>
 const selectedPosInfo = computed(() =>
   selectedPosition.value ? i18n.value.experience.positions[selectedPosition.value.id] : null
 )
+const isGridMode = ref(false)
 
 watch(
   () => props.lastKeyDown,
@@ -65,12 +68,7 @@ const tableColumns = computed<TableColumn[]>(() => [
     field: 'stack',
     width: 'auto',
     header: i18n.value.experience.stack,
-    format: (row: any) => {
-      const pos = row as Position
-      return [...pos.feStack, ...pos.beStack]
-        .sort((a, b) => stackWeight[b] - stackWeight[a])
-        .join('/')
-    },
+    format: (row: any) => formatStack(row as Position),
     sortable: false
   },
   {
@@ -81,19 +79,79 @@ const tableColumns = computed<TableColumn[]>(() => [
     sortable: true
   }
 ])
+
+const cardGroups = computed<CardListGroup[]>(() => [
+  {
+    field: 'type',
+    name: (val: string) => i18n.value.experience.positionTypes[val as PositionType],
+    groupEntries: (entries: Record<string, any>[]) => {
+      const positions = entries as Position[]
+      const grouped: Record<PositionType, Position[]> = {
+        [PositionType.FullTime]: [],
+        [PositionType.PartTime]: [],
+        [PositionType.WorkStudy]: [],
+        [PositionType.Internship]: []
+      }
+      positions
+        .sort((a, b) => (a.id < b.id ? 1 : -1))
+        .forEach((position) => grouped[position.type].push(position))
+      return grouped
+    }
+  }
+])
 </script>
 
 <template>
-  <DataTable
-    v-if="!selectedPosition"
-    ref-field="id"
-    :columns="tableColumns"
-    :entries="positions"
-    :last-key-down="lastKeyDown"
-    @select="selectedPosition = $event as Position"
-    sort-by="id"
-    sort-dir="desc"
-  />
+  <div v-if="!selectedPosition" class="flex flex-col h-full">
+    <div
+      class="flex flex-col-reverse sm:flex-row sm:items-center sm:justify-between mb-3 text-sm opacity-90"
+    >
+      <div>select a position to learn more</div>
+
+      <div class="flex items-center text-right">
+        view mode:
+        <div class="px-3 cursor-pointer" @click="isGridMode = false">
+          <v-icon
+            name="md-tablechart-sharp"
+            class="opacity-30 lg:opacity-100"
+            :class="{ 'lg:text-steelblue': !isGridMode }"
+          />
+        </div>
+        /
+        <div class="px-3 cursor-pointer" @click="isGridMode = true">
+          <v-icon
+            name="md-gridview-sharp"
+            class="text-steelblue lg:text-darkgray"
+            :class="{ 'lg:text-steelblue': isGridMode }"
+          />
+        </div>
+      </div>
+    </div>
+
+    <div class="flex-auto overflow-hidden">
+      <DataTable
+        class="hidden lg:block"
+        :class="{ 'lg:hidden': isGridMode }"
+        ref-field="id"
+        :columns="tableColumns"
+        :entries="Positions"
+        :last-key-down="lastKeyDown"
+        @select="selectedPosition = $event as Position"
+        sort-by="id"
+        sort-dir="desc"
+      />
+
+      <CardList
+        :class="{ 'lg:hidden': !isGridMode }"
+        ref-field="id"
+        :groups="cardGroups"
+        :entries="Positions"
+        :card="PositionCard"
+        :last-key-down="lastKeyDown"
+        @select="selectedPosition = $event as Position"
+      />
+    </div>
+  </div>
 
   <div v-else class="flex flex-col h-full text-sm">
     <div class="flex items-center gap-x-5">
@@ -104,18 +162,18 @@ const tableColumns = computed<TableColumn[]>(() => [
         <div class="flex-auto pl-7">
           {{ i18n.experience.positionRoles[selectedPosition.role] }} /
           {{ i18n.experience.positionTypes[selectedPosition.type] }}
-          <template v-if="selectedPosition.consultingFirm">
-            / {{ i18n.experience.contractorFor }} {{ selectedPosition.consultingFirm }}
-          </template>
         </div>
         <div class="pr-7">{{ formatWorkPeriod(selectedPosition) }}</div>
       </div>
 
-      <div class="text-steelblue text-right">
-        <button class="font-bold text-darkgoldenrod cursor-pointer" @click="clearSelectedPosition">
+      <div class="flex items-center text-steelblue text-right">
+        <button
+          class="font-bold text-darkgoldenrod cursor-pointer text-base"
+          @click="clearSelectedPosition"
+        >
           [{{ i18n.back }}]
         </button>
-        {{ i18n.or }} &lt;{{ i18n.backspace }}&gt;
+        &nbsp;{{ i18n.or }} &lt;{{ i18n.backspace }}&gt;
       </div>
     </div>
 
