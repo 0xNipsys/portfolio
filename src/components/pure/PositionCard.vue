@@ -2,6 +2,7 @@
 import type { Position } from '@/constants/positions'
 import { formatStack, formatWorkPeriod } from '@/utils/position-formatting'
 import { useTemplateRef, watch } from 'vue'
+import { i18n } from '@/content/i18n'
 
 const props = defineProps<{
   entry: Position
@@ -31,18 +32,18 @@ watch(
       :class="{ 'bg-steelblue': selected, 'text-steelblue': !selected }"
     >
       <div class="flex-auto">
-        <span class="text-xs">company</span>
+        <span class="text-xs">{{ i18n.experience.company }}</span>
         <div class="font-bold text-darkgray">{{ entry.company }}</div>
       </div>
       <div class="flex-auto text-right">
-        <span class="text-xs">role</span>
+        <span class="text-xs">{{ i18n.experience.role }}</span>
         <div class="text-darkgray">{{ entry.role }}</div>
       </div>
     </div>
 
     <div class="px-2 pb-1">
       <div>
-        <span class="text-xs text-steelblue">stack</span>
+        <span class="text-xs text-steelblue">{{ i18n.experience.stack }}</span>
         <div class="overflow-hidden text-ellipsis text-nowrap text-darkgray">
           <span
             v-for="(e, i) in formatStack(entry).split('/')"
@@ -53,13 +54,13 @@ watch(
         </div>
       </div>
 
-      <div class="flex">
-        <div class="flex-auto">
-          <span class="text-xs text-steelblue">contract type</span>
-          <div>{{ entry.type }}</div>
+      <div class="flex flex-wrap gap-x-2">
+        <div class="flex-auto text-nowrap">
+          <span class="text-xs text-steelblue">{{ i18n.experience.type }}</span>
+          <div>{{ i18n.experience.positionTypes[entry.type] }}</div>
         </div>
-        <div class="flex-auto text-right">
-          <span class="text-xs text-steelblue">period</span>
+        <div class="flex-auto text-nowrap">
+          <span class="text-xs text-steelblue">{{ i18n.experience.period }}</span>
           <div>{{ formatWorkPeriod(entry) }}</div>
         </div>
       </div>

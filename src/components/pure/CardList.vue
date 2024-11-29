@@ -9,7 +9,7 @@ export interface CardListGroup {
 
 const props = defineProps<{
   refField: string
-  groups: CardListGroup[]
+  group: CardListGroup
   entries: Record<string, any>[]
   card: Object
   lastKeyDown: KeyboardEvent | null
@@ -19,10 +19,7 @@ const emit = defineEmits<{
   (e: 'select', entry: Record<string, any>): void
 }>()
 
-const activeGroupIdx = ref(0)
-const groupedEntries = computed(() =>
-  props.groups[activeGroupIdx.value].groupEntries(props.entries)
-)
+const groupedEntries = computed(() => props.group.groupEntries(props.entries))
 const groupKeys = computed(() => Object.keys(groupedEntries.value))
 const selectionPos = ref<[number, number]>([0, 0])
 
@@ -64,7 +61,7 @@ function selectEntry() {
     <div v-for="(key, groupIdx) in groupKeys" :key="key">
       <div class="text-sm mb-3 border-y border-darkslategray">
         <h3 class="text-sm lowercase bg-darkslategray px-2 py-1 w-fit">
-          {{ key }}
+          {{ group.name(key) }}
         </h3>
       </div>
 

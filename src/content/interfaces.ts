@@ -25,6 +25,8 @@ export interface I18nCmd {
 }
 
 export interface I18nExperience {
+  selectPosition: string
+  viewMode: string
   company: string
   consultingFirm: string
   contractorFor: string

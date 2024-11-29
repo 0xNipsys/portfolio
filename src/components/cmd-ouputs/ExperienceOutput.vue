@@ -6,7 +6,7 @@ import { computed, ref, watch } from 'vue'
 import { i18n } from '@/content/i18n'
 import { Companies } from '@/constants/companies'
 import CardList, { type CardListGroup } from '@/components/pure/CardList.vue'
-import { PositionType } from '@/enums/work'
+import { PositionRole, PositionType } from '@/enums/work'
 import PositionCard from '@/components/pure/PositionCard.vue'
 
 const props = defineProps<{
@@ -80,25 +80,23 @@ const tableColumns = computed<TableColumn[]>(() => [
   }
 ])
 
-const cardGroups = computed<CardListGroup[]>(() => [
-  {
-    field: 'type',
-    name: (val: string) => i18n.value.experience.positionTypes[val as PositionType],
-    groupEntries: (entries: Record<string, any>[]) => {
-      const positions = entries as Position[]
-      const grouped: Record<PositionType, Position[]> = {
-        [PositionType.FullTime]: [],
-        [PositionType.PartTime]: [],
-        [PositionType.WorkStudy]: [],
-        [PositionType.Internship]: []
-      }
-      positions
-        .sort((a, b) => (a.id < b.id ? 1 : -1))
-        .forEach((position) => grouped[position.type].push(position))
-      return grouped
+const cardGroup = computed<CardListGroup>(() => ({
+  field: 'type',
+  name: (val: string) => i18n.value.experience.positionTypes[val as PositionType],
+  groupEntries: (entries: Record<string, any>[]) => {
+    const positions = entries as Position[]
+    const grouped: Record<PositionType, Position[]> = {
+      [PositionType.FullTime]: [],
+      [PositionType.PartTime]: [],
+      [PositionType.WorkStudy]: [],
+      [PositionType.Internship]: []
     }
+    positions
+      .sort((a, b) => (a.id < b.id ? 1 : -1))
+      .forEach((position) => grouped[position.type].push(position))
+    return grouped
   }
-])
+}))
 </script>
 
 <template>
@@ -106,10 +104,10 @@ const cardGroups = computed<CardListGroup[]>(() => [
     <div
       class="flex flex-col-reverse sm:flex-row sm:items-center sm:justify-between mb-3 text-sm opacity-90"
     >
-      <div>select a position to learn more</div>
+      <div>{{ i18n.experience.selectPosition }}</div>
 
       <div class="flex items-center text-right">
-        view mode:
+        {{ i18n.experience.viewMode }}
         <div class="px-3 cursor-pointer" @click="isGridMode = false">
           <v-icon
             name="md-tablechart-sharp"
@@ -144,7 +142,7 @@ const cardGroups = computed<CardListGroup[]>(() => [
       <CardList
         :class="{ 'lg:hidden': !isGridMode }"
         ref-field="id"
-        :groups="cardGroups"
+        :group="cardGroup"
         :entries="Positions"
         :card="PositionCard"
         :last-key-down="lastKeyDown"
@@ -245,7 +243,9 @@ const cardGroups = computed<CardListGroup[]>(() => [
           <div class="px-5 py-3">
             <div class="flex">
               <div class="flex-1">
-                <span class="text-lightseagreen font-bold">front-end</span>
+                <span class="text-lightseagreen font-bold lowercase">{{
+                  i18n.experience.positionRoles[PositionRole.Frontend]
+                }}</span>
                 <ul>
                   <template v-if="selectedPosInfo?.feAccomplishments.length">
                     <li v-for="entry in selectedPosInfo?.feAccomplishments" :key="entry">
@@ -257,7 +257,9 @@ const cardGroups = computed<CardListGroup[]>(() => [
               </div>
 
               <div class="flex-1">
-                <span class="text-lightseagreen font-bold">back-end</span>
+                <span class="text-lightseagreen font-bold lowercase">{{
+                  i18n.experience.positionRoles[PositionRole.Backend]
+                }}</span>
                 <ul>
                   <template v-if="selectedPosInfo?.beAccomplishments.length">
                     <li v-for="entry in selectedPosInfo?.beAccomplishments" :key="entry">
@@ -279,7 +281,9 @@ const cardGroups = computed<CardListGroup[]>(() => [
           <div class="px-5 py-3">
             <div class="flex">
               <div class="flex-1">
-                <span class="text-lightseagreen font-bold">front-end</span>
+                <span class="text-lightseagreen font-bold lowercase">{{
+                  i18n.experience.positionRoles[PositionRole.Frontend]
+                }}</span>
                 <ul>
                   <template v-if="selectedPosition.feStack.length">
                     <li v-for="entry in selectedPosition.feStack" :key="entry">
@@ -290,7 +294,9 @@ const cardGroups = computed<CardListGroup[]>(() => [
                 </ul>
               </div>
               <div class="flex-1">
-                <span class="text-lightseagreen font-bold">back-end</span>
+                <span class="text-lightseagreen font-bold lowercase">{{
+                  i18n.experience.positionRoles[PositionRole.Backend]
+                }}</span>
                 <ul>
                   <template v-if="selectedPosition.beStack.length">
                     <li v-for="entry in selectedPosition.beStack" :key="entry">

@@ -3,6 +3,8 @@ import { Company, CompanySector, CompanySize, PositionRole, PositionType } from 
 import type { I18nExperience } from '@/content/interfaces'
 
 export default {
+  selectPosition: 'sélectionnez une expérience pour en savoir plus',
+  viewMode: "mode d'affichage:",
   company: 'entreprise',
   consultingFirm: 'cabinet de conseil',
   contractorFor: 'consultant pour',
