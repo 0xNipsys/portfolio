@@ -7,10 +7,13 @@ import { Tab } from '@/enums/tab'
 import { RepoUrl } from '@/constants/base'
 import { Shells } from '@/shell/shell'
 import TabToggle from '@/components/pure/TabToggle.vue'
+import { CheckForNewVersion } from '@/update'
 
 const currentTab = ref(Tab.MainTab)
 
-onMounted(() => {
+onMounted(async () => {
+  await CheckForNewVersion()
+
   if (navigator.language.includes('fr')) {
     CurrentLang.value = Lang.FR
   }
