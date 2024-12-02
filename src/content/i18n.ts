@@ -32,6 +32,7 @@ watch(
   { immediate: true }
 )
 
+// TODO: Refactor this into multiple files: one for CoreI18n, Common18n, etc
 const content: Record<Lang, I18nContent> = {
   [Lang.EN]: {
     cmdDesc: enCmdDesc,
@@ -56,7 +57,11 @@ const content: Record<Lang, I18nContent> = {
     exit: 'exit',
     fullScreenMode: 'full-screen mode',
     present: 'Present',
-    unknownCmdErr: 'command not recognized'
+    unknownCmdErr: 'command not recognized',
+    updateTitle: 'Update Available',
+    updateBody1: 'There is a newer version of this website.',
+    updateBody2: 'Please proceed to the latest CID.',
+    update: 'update'
   },
   [Lang.FR]: {
     cmdDesc: frCmdDesc,
@@ -81,7 +86,11 @@ const content: Record<Lang, I18nContent> = {
     exit: 'quitter',
     fullScreenMode: 'mode plein écran',
     present: "Aujourd'hui",
-    unknownCmdErr: 'commande non reconnue'
+    unknownCmdErr: 'commande non reconnue',
+    updateTitle: 'Mise à jour disponible',
+    updateBody1: 'Il existe une version plus récente de ce site web.',
+    updateBody2: 'Veuillez poursuivre vers le plus récent CID.',
+    update: 'actualiser'
   }
 }
 

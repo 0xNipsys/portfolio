@@ -17,6 +17,10 @@ export interface I18nContent {
   fullScreenMode: string
   present: string
   unknownCmdErr: string
+  updateTitle: string
+  updateBody1: string
+  updateBody2: string
+  update: string
 }
 
 export interface I18nCmd {

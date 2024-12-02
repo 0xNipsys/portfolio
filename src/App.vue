@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, ref, watch } from 'vue'
+import { onBeforeMount, onMounted, onUnmounted, ref, watch } from 'vue'
 import { CurrentLang } from '@/content/i18n'
 import Terminal from '@/components/core/TerminalEmulator.vue'
 import { Lang, LangLabels } from '@/enums/lang'
@@ -8,18 +8,27 @@ import { RepoUrl } from '@/constants/base'
 import { Shells } from '@/shell/shell'
 import TabToggle from '@/components/pure/TabToggle.vue'
 import { GetNewCid, GoToCid } from '@/update'
+import UpdateAlert from '@/components/core/UpdateAlert.vue'
 
 const currentTab = ref(Tab.MainTab)
+const newCid = ref<string | null>(null)
+const cidCheckIntervalId = ref<number | null>(null)
+
+onBeforeMount(async () => update(await GetNewCid()))
 
 onMounted(async () => {
-  const newCid = await GetNewCid()
-  if (newCid) {
-    GoToCid(newCid)
-  }
-
   if (navigator.language.includes('fr')) {
     CurrentLang.value = Lang.FR
   }
+
+  cidCheckIntervalId.value = setInterval(async () => {
+    newCid.value = await GetNewCid()
+  }, 60000)
+})
+
+onUnmounted(() => {
+  if (!cidCheckIntervalId.value) return
+  clearInterval(cidCheckIntervalId.value)
 })
 
 watch(currentTab, () => {
@@ -27,10 +36,17 @@ watch(currentTab, () => {
     Shells[currentTab.value] = {}
   }
 })
+
+function update(cid = newCid.value) {
+  if (!cid) return
+  GoToCid(cid)
+}
 </script>
 
 <template>
-  <div class="w-screen h-screen bg-darkslateblue flex flex-col justify-center relative">
+  <div class="w-dvw h-dvh bg-darkslateblue flex flex-col justify-center relative">
+    <UpdateAlert v-if="newCid" @update="update()" />
+
     <div
       class="flex items-center justify-between h-10 px-2 sm:px-5 text-darkgray/60 tracking-tighter absolute w-full top-0 transition-colors"
     >
